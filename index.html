@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>tribe</title>
 
     <!--CSS Styling-->
@@ -14,20 +16,140 @@
 
 <body>
 
-    <ion-app>
+    <!--Hamburger Menu-->
+    <ion-app class="colour">
+        <ion-menu side="start" content-id="main-content" class="menu">
+            <ion-header>
+                <ion-toolbar translucent>
+                    <ion-title>tribe</ion-title>
+                </ion-toolbar>
+            </ion-header>
 
-        <!--Header-->
-        <ion-header>
-            <ion-toolbar>
-                <ion-title>Home</ion-title>
-            </ion-toolbar>
-        </ion-header>
+            <ion-content class="menu">
+                <ion-list>
+                    <ion-item>
+                        <ion-icon name="mail" slot="start"></ion-icon>
+                        <ion-label>Inbox</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-icon name="paper-plane" slot="start"></ion-icon>
+                        <ion-label>Outbox</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-icon name="heart" slot="start"></ion-icon>
+                        <ion-label>Favorites</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-icon name="archive" slot="start"></ion-icon>
+                        <ion-label>Archived</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-icon name="trash" slot="start"></ion-icon>
+                        <ion-label>Trash</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-icon name="warning" slot="start"></ion-icon>
+                        <ion-label>Spam</ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-content>
+        </ion-menu>
 
-        <!--Main Content-->
-        <ion-content>
+        <!--Pages and Main Content-->
+        <div class="ion-page menu" id="main-content">
 
-        </ion-content>
+            <ion-tabs>
+                <!--Home Page-->
+                <ion-tab tab="home">
+                    <!--Header-->
+                    <ion-header>
+                        <ion-toolbar>
+                            <ion-buttons slot="start">
+                                <ion-menu-button></ion-menu-button>
+                            </ion-buttons>
+                            <ion-title>Home</ion-title>
+                        </ion-toolbar>
+                    </ion-header>
+                    <ion-content class="ion-padding tab-content">
+
+                    </ion-content>
+                </ion-tab>
+
+                <!--Food Page-->
+                <ion-tab tab="food">
+                    <!--Header-->
+                    <ion-header>
+                        <ion-toolbar>
+                            <ion-buttons slot="start">
+                                <ion-menu-button></ion-menu-button>
+                            </ion-buttons>
+                            <ion-title>Food</ion-title>
+                        </ion-toolbar>
+                    </ion-header>
+                    <ion-content class="ion-padding tab-content">
+
+                    </ion-content>
+                </ion-tab>
+
+                <!--Alarm Page-->
+                <ion-tab tab="alarm" component="page-map">
+                    <!--Header-->
+                    <ion-header>
+                        <ion-toolbar>
+                            <ion-buttons slot="start">
+                                <ion-menu-button></ion-menu-button>
+                            </ion-buttons>
+                            <ion-title>Alarm</ion-title>
+                        </ion-toolbar>
+                    </ion-header>
+                    <ion-content class="ion-padding tab-content">
+
+                    </ion-content>
+                </ion-tab>
+
+                <!--Profile-->
+                <ion-tab tab="profile" component="page-about">
+                    <!--Header-->
+                    <ion-header>
+                        <ion-toolbar>
+                            <ion-buttons slot="start">
+                                <ion-menu-button></ion-menu-button>
+                            </ion-buttons>
+                            <ion-title>Profile</ion-title>
+                        </ion-toolbar>
+                    </ion-header>
+                    <ion-content class="ion-padding tab-content">
+
+                    </ion-content>
+
+                </ion-tab>
+
+                <!--Footer-->
+                <ion-tab-bar slot="bottom">
+                    <ion-tab-button tab="home" class="tab-btn">
+                        <ion-icon name="home" class="tribe-orange-c tab-icon"></ion-icon>
+                    </ion-tab-button>
+
+                    <ion-tab-button tab="food" class="tab-btn">
+                        <ion-icon name="restaurant-outline" class="tribe-orange-c tab-icon"></ion-icon>
+                    </ion-tab-button>
+
+                    <ion-tab-button tab="alarm" class="tab-btn">
+                        <ion-icon name="alarm-outline" class="tribe-orange-c tab-icon"></ion-icon>
+                    </ion-tab-button>
+
+                    <ion-tab-button tab="profile" class="tab-btn">
+                        <ion-icon name="person-circle-outline" class="tribe-orange-c tab-icon"></ion-icon>
+                    </ion-tab-button>
+                </ion-tab-bar>
+
+            </ion-tabs>
+        </div>
+
     </ion-app>
+
+
+
 
     <!--Javascript-->
     <!--Ionic-->
@@ -41,6 +163,15 @@
 
     <!--Local-->
     <script src="js/code.js"></script>
+
+    <script type="module">
+        import { menuController } from 'https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/index.esm.js';
+        window.menuController = menuController;
+
+        async function openMenu() {
+            await menuController.open();
+        }
+    </script>
 
 </body>
 
