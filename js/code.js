@@ -24,7 +24,7 @@ function DateObject (dateObj){
 
         return dateReturn;
     };
-}
+};
 
 //Account Object Template
 function UserAccount (id, username, password, email, firstName, lastName, child){
@@ -35,21 +35,50 @@ function UserAccount (id, username, password, email, firstName, lastName, child)
     this.firstName = firstName;
     this.lastName = lastName;
     this.child = child;
-}
+};
 
 //Child Object Template
-function Child (id, name, dob, age, weight, height){
+function Child (id, name, dob, weight, height){
     this.id = id;
     this.name = name;
     this.dob = dob;
-    this.age = currentDate
-}
+    this.age = function (){
+
+        //Find difference in years
+        var yearDiff = currentDate.year - this.dob.year;
+
+        //Find difference in years
+        var monthDiff = currentDate.month - this.dob.month;
+
+        //If month in entryDate is before month in childDOB
+        if(monthDiff < 0){
+            monthDiff = 12 + monthDiff;
+            yearDiff -= 1;
+        }
+
+        //Variable to return at the end
+        var ageReturn;
+
+        //If child is older than 18 months
+        if(yearDiff > 1 && monthDiff > 6){
+            ageReturn = `${yearDiff} years ${monthDiff} months`;
+        }
+
+        else{
+            ageReturn = `${monthDiff + yearDiff * 12} months`;
+        }
+
+        return ageReturn;
+    };
+    this.weight = weight;
+    this.height = height;
+};
 
 //Journal Object Template
-function JorunalEntry (entryName, entryDate, entryAge, entryText, entryMedia){
+function JorunalEntry (entryName, entryDate, entryText, entryMedia){
     this.entryName = entryName;
     this.entryDate = entryDate;
-    this.Age = function (){
+    this.entryAge = function (){
 
         //Find difference in years
         var yearDiff = entryDate.year - childDOB.year;
