@@ -15,6 +15,7 @@ function DateObject (dateObj){
     this.month = dateObj.getMonth();
     this.year = dateObj.getFullYear();
     this.date = function(){
+        //Convert int to str for concantenation
         var dayStr = this.day.toString();
         var monthStr = this.month.toString();
         var yearStr = this.year.toString();
