@@ -22,7 +22,7 @@
         <ion-menu side="start" content-id="main-content" class="menu">
             <ion-header id="menu-header" class="white-bg menu-header">
                 <ion-toolbar translucent>
-                    <ion-title><img id="hamburger-logo" src="images/logo-name.png"></ion-title>
+                    <ion-title id="hamburger-title"><img id="hamburger-logo" src="images/logo.png"></ion-title>
                 </ion-toolbar>
             </ion-header>
 
@@ -101,7 +101,9 @@
                         </ion-toolbar>
                     </ion-header>
                     <ion-content class="ion-padding tab-content">
+                        <div id="profile-body">
 
+                        </div>
                     </ion-content>
 
                 </ion-tab>
@@ -146,8 +148,8 @@
     <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
 
     <!--jQuery-->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
         crossorigin="anonymous"></script>
 
     <!--Local-->
@@ -195,12 +197,12 @@
  
             <ion-item>
                 <ion-label position="floating">Details</ion-label>
-                <ion-textarea rows="20"></ion-textarea>
+                <ion-textarea rows="20" id="journal-details"></ion-textarea>
             </ion-item>
 
             <ion-item>
                 <ion-label position="fixed">Image</ion-label>
-                <ion-input clear-input type="file" accept="image/*"></ion-input>
+                <ion-input clear-input type="file" accept="image/*" id="journal-image"></ion-input>
             </ion-item>
 
             <ion-button class="ion-padding" id="journal-submit" expand="block" slot="icon-only">Save Entry</ion-button>

@@ -110,18 +110,14 @@
     */
 }
 
-ion-title {
+#hamburger-title {
   text-align: center;
 }
 
 #hamburger-logo {
   width: 20vw;
   height: auto;
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
-  -ms-grid-column-align: center;
-      justify-self: center;
+  padding-top: 10px;
 }
 
 #menu-header {
@@ -210,5 +206,11 @@ ion-title {
   position: relative;
   font-size: 30px;
   right: 2vw;
+}
+
+#profile-body {
+  bottom: 0;
+  height: 80vh;
+  background-color: white;
 }
 /*# sourceMappingURL=styles.css.map */

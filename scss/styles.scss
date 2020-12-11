@@ -130,7 +130,7 @@ $font-size: (
   }
    
 //General Styling
-ion-title{
+#hamburger-title{
     text-align: center;
 }
 
@@ -138,8 +138,7 @@ ion-title{
     width: 20vw;
     height: auto;
 
-    align-self: center;
-    justify-self: center;
+    padding-top: 10px;
 }
 
 #menu-header{
@@ -178,6 +177,7 @@ ion-title{
     /*font-size: map-get($font-size, tab-icon);*/   
 }
 
+//Journal Styling
 #add-journal-btn{
     position: fixed;
     align-self: center;
@@ -230,3 +230,10 @@ ion-title{
  }
 
   
+//Profile Styling
+#profile-body{
+    bottom: 0;
+    height: 80vh;
+
+    background-color: white;
+}

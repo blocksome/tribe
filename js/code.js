@@ -9,6 +9,11 @@ $(document).ready(function () {
     //Journal Submit
     $("body").on("click", "#journal-submit", function () {
 
+        //Storing input valuesa as variables
+        var journalName = $("#journal-name:nth-child(2)").val();
+        var journalDetails = $("#journal-details:nth-child(2)").val();
+        var journalImage = $("#journal-image:nth-child(2)").val();
+
         //Verify if entry name is blank  
         if ($("#journal-name:nth-child(2)").val() == "") {
             const alert = document.createElement('ion-alert');
@@ -21,8 +26,23 @@ $(document).ready(function () {
             return alert.present();
         }
 
+        //Submit new entry
         else {
 
+            //Updating local user
+            var newEntry = new JournalEntry(journalName, currentDate, journalDetails, journalImage);
+            localAccount.journalEntries.push(newEntry);
+
+            //Updating local user in the account data
+            //Look for user in array
+            for(var i; i < accountsArray.length; i++){
+                if(accountsArray[i].id == localAccount.id){
+                    accountsArray.splice(i, 1, localAccount);
+                }
+            }
+
+            //Sending data to database
+            UpdateData(accountsArray);
         }
     });
 
@@ -77,12 +97,15 @@ $(document).ready(function () {
 
 //Global Variables
 //Database Login Details
-var apiKey = "";
-var myDB = "";
-var myCollection = "";
+var apiKey = "5e265bf14327326cf1c919e3";
+var myDB = "pf2test-9f8d";
+var myCollection = "test";
 
-//Account Data Object (all users)
-var accountData;
+//Account Data Array (all users)
+var accountsArray = [];
+
+//User Account Local (1 user)
+var localAccount;
 
 //Journal Entry Array (1 user)
 var entryArray = [];
@@ -92,13 +115,20 @@ var currentDate = new DateObject(new Date());
 
 //Functions
 //Function to update database
-function UpdateData(submitData) {
-    //Settings config to POST data
+function updateData(updatedArray) {
+
+    //Object to be submitted for POST
+    var submitData = {
+        "accountsArray": updatedArray
+    };
+
+    //Settings config to PUT data
+    //NOTE: url will change if you delete the restdb data entry, only do so if of right mind and clear understanding
     var settings = {
         "async": true,
         "crossDomain": true,
-        "url": "https://" + myDB + ".restdb.io/rest/" + myCollection + "",
-        "method": "POST",
+        "url": "https://" + myDB + ".restdb.io/rest/" + myCollection + "/5fd3a36f6c39096d00016ece",
+        "method": "PUT",
         "headers": {
             "content-type": "application/json",
             "x-apikey": apiKey,
@@ -110,12 +140,12 @@ function UpdateData(submitData) {
 
     $.ajax(settings).done(function (response) {
         console.log(response);
-        console.log("Data successfully POSTed");
+        console.log("Data successfully updated");
     });
 }
 
 //Function to retrieve data
-function GetData() {
+function getData() {
     //Settings config to GET data
     var settings = {
         "async": true,
@@ -132,6 +162,8 @@ function GetData() {
     $.ajax(settings).done(function (data) {
         console.log("successfully log into db");
         console.log(data);
+
+        accountsArray = data[0].accountsArray;
     });
 }
 
@@ -161,11 +193,10 @@ function DateObject(dateObj) {
 };
 
 //Account Object Template
-function UserAccount(id, username, password, email, firstName, lastName, child, journalEntries) {
+function UserAccount(id, email, password, firstName, lastName, child, journalEntries) {
     this.id = id;
-    this.username = username;
-    this.password = password;
     this.email = email;
+    this.password = password;
     this.firstName = firstName;
     this.lastName = lastName;
     this.child = child;
@@ -210,7 +241,7 @@ function Child(id, name, dob, weight, height) {
 };
 
 //Journal Object Template
-function JorunalEntry(entryName, entryDate, entryText, entryMedia) {
+function JournalEntry(entryName, entryDate, entryText, entryMedia) {
     this.entryName = entryName;
     this.entryDate = entryDate;
     this.entryAge = function () {
