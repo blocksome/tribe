@@ -1,7 +1,31 @@
 //Code for tribe
 
-//jQuery Listeners
+//Do stuff on document load
 $(document).ready(function () {
+
+
+
+    //jQuery Listeners
+    //Journal Submit
+    $("body").on("click", "#journal-submit", function () {
+
+        //Verify if entry name is blank  
+        if ($("#journal-name:nth-child(2)").val() == "") {
+            const alert = document.createElement('ion-alert');
+            alert.cssClass = 'entry-name-empty-alert';
+            alert.header = 'Hey!';
+            alert.message = "You can't leave the entry name empty.";
+            alert.buttons = ['OK'];
+
+            document.body.appendChild(alert);
+            return alert.present();
+        }
+
+        else {
+
+        }
+    });
+
     //Tab Buttons
     $("ion-tab-button").click(function () {
 
@@ -52,10 +76,67 @@ $(document).ready(function () {
 
 
 //Global Variables
+//Database Login Details
+var apiKey = "";
+var myDB = "";
+var myCollection = "";
+
+//Account Data Object (all users)
+var accountData;
+
+//Journal Entry Array (1 user)
+var entryArray = [];
+
+//Current Date
 var currentDate = new DateObject(new Date());
 
+//Functions
+//Function to update database
+function UpdateData(submitData) {
+    //Settings config to POST data
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://" + myDB + ".restdb.io/rest/" + myCollection + "",
+        "method": "POST",
+        "headers": {
+            "content-type": "application/json",
+            "x-apikey": apiKey,
+            "cache-control": "no-cache"
+        },
+        "processData": false,
+        "data": JSON.stringify(submitData)
+    }
+
+    $.ajax(settings).done(function (response) {
+        console.log(response);
+        console.log("Data successfully POSTed");
+    });
+}
+
+//Function to retrieve data
+function GetData() {
+    //Settings config to GET data
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://" + myDB + ".restdb.io/rest/" + myCollection + "",
+        "method": "GET",
+        "headers": {
+            "content-type": "application/json",
+            "x-apikey": apiKey,
+            "cache-control": "no-cache"
+        }
+    }
+
+    $.ajax(settings).done(function (data) {
+        console.log("successfully log into db");
+        console.log(data);
+    });
+}
 
 //Object Templates
+
 //Date Object Template
 function DateObject(dateObj) {
     this.dateObj = dateObj;
@@ -80,7 +161,7 @@ function DateObject(dateObj) {
 };
 
 //Account Object Template
-function UserAccount(id, username, password, email, firstName, lastName, child) {
+function UserAccount(id, username, password, email, firstName, lastName, child, journalEntries) {
     this.id = id;
     this.username = username;
     this.password = password;
@@ -88,6 +169,7 @@ function UserAccount(id, username, password, email, firstName, lastName, child) 
     this.firstName = firstName;
     this.lastName = lastName;
     this.child = child;
+    this.journalEntries = journalEntries;
 };
 
 //Child Object Template

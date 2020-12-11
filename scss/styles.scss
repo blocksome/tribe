@@ -2,6 +2,7 @@
 //SCSS Variables
 $tribe-tan: #FFF7DD;
 $tribe-orange: #FF8127;
+$tribe-light-orange: #FFA96B;
 $tribe-dark-orange: #E76B13;
 
 $font-size: (
@@ -12,16 +13,14 @@ $font-size: (
 :root {
     
     
-    
     //Ionic Themes and Colours
     
-    //Manual Rewrite
-    --ion-overlay-background-color: --ion-color-light;
     
     //Custom Theme
     --ion-background-color: --ion-color-tribe-tan;
     --ion-background-color-rgb: 255,247,221;
-
+    
+    /*
     --ion-text-color: #000000;
     --ion-text-color-rgb: 0,0,0;
 
@@ -127,12 +126,33 @@ $font-size: (
     --ion-color-contrast-rgb: var(--ion-color-tribe-tan-contrast-rgb);
     --ion-color-shade: var(--ion-color-tribe-tan-shade);
     --ion-color-tint: var(--ion-color-tribe-tan-tint);
+    */
   }
-  
-
+   
 //General Styling
+ion-title{
+    text-align: center;
+}
+
+#hamburger-logo{
+    width: 20vw;
+    height: auto;
+
+    align-self: center;
+    justify-self: center;
+}
+
+#menu-header{
+    padding-bottom: 105px;
+    background-color: $tribe-tan;
+}
+
+.white-bg{
+    background: white;
+}
+
 .tab-content{
-    background-color: $tribe-tan !important;
+    background-color: $tribe-tan;
 }
 
 .tribe-orange-c{
@@ -166,10 +186,12 @@ $font-size: (
     height: 16vw;
     bottom: 5vh;
 
-    background-color: $tribe-dark-orange;
+    background-color: white;
     border-radius: 50%;
 
     display: flex;
+
+    box-shadow: 0px 4px 2px rgba(0, 0, 0, 0.116);
 }
 
 
@@ -178,9 +200,8 @@ $font-size: (
     align-self: center;
 
     text-align: center;
-    font-size: 8vh;
 
-    color: white;
+    color: $tribe-light-orange;
 }
 
 .tab-btn{
@@ -194,5 +215,18 @@ $font-size: (
 .my-custom-menu {
     --width: 500px;
   }
+
+  .journal-modal-css .modal-wrapper {
+    height: 100%;
+    top: 20%;
+    position: absolute; 
+    display: block;  
+ }
+
+ #journal-close-btn{
+     position: relative;
+     font-size: 30px;
+     right: 2vw;
+ }
 
   

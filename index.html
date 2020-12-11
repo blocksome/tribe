@@ -16,19 +16,21 @@
 
 <body>
 
-    <!--Hamburger Menu-->
-    <ion-app class="colour">
+    <!--App-->
+    <ion-app>
+        <!--Hamburger Menu-->
         <ion-menu side="start" content-id="main-content" class="menu">
-            <ion-header id="menu-header">
+            <ion-header id="menu-header" class="white-bg menu-header">
                 <ion-toolbar translucent>
-                    <ion-title>tribe</ion-title>
+                    <ion-title><img id="hamburger-logo" src="images/logo-name.png"></ion-title>
                 </ion-toolbar>
             </ion-header>
 
-            <ion-content class="menu">
+
+            <ion-content class="menu white-bg">
                 <ion-list>
                     <ion-item>
-                        <ion-icon name="settings" slot="start"></ion-icon>
+                        <ion-icon name="settings" slot="end"></ion-icon>
                         <ion-label>Settings</ion-label>
                     </ion-item>
                 </ion-list>
@@ -104,23 +106,6 @@
 
                 </ion-tab>
 
-                <!--Add Journal Entry-->
-                <ion-tab tab="add-journal">
-                    <!--Header-->
-                    <ion-header class="app-header">
-                        <ion-toolbar>
-                            <ion-buttons slot="start">
-                                <ion-menu-button></ion-menu-button>
-                            </ion-buttons>
-                            <ion-title>Add Journal Entry</ion-title>
-                        </ion-toolbar>
-                    </ion-header>
-                    <ion-content class="ion-padding tab-content">
-
-                    </ion-content>
-
-                </ion-tab>
-
                 <!--Footer-->
                 <ion-tab-bar slot="bottom" id="app-footer">
 
@@ -146,7 +131,7 @@
         </div>
 
         <div id="add-journal-btn">
-            <ion-icon name="add-circle-outline" size="ion-5x" class="tribe-orange-c tab-icon" id="add-journal-btn">
+            <ion-icon name="add-circle" class="tribe-orange-c tab-icon" id="add-journal-btn">
             </ion-icon>
         </div>
 
@@ -192,43 +177,33 @@
         customElements.define('modal-content', class ModalContent extends HTMLElement {
             connectedCallback() {
                 this.innerHTML = `
-          <ion-header translucent>
+          <ion-header translucent class="white-bg">
             <ion-toolbar>
-              <ion-title>Modal Content</ion-title>
+              <ion-title>New Journal Entry</ion-title>
               <ion-buttons slot="end">
-                <ion-button onclick="dismissModal()">Close</ion-button>
+                <ion-icon name="close-outline" id="journal-close-btn" onclick="dismissModal()"></ion-icon>
               </ion-buttons>
             </ion-toolbar>
           </ion-header>
-          <ion-content fullscreen>
+
+          <ion-content class="white-bg">
             <ion-list>
-              <ion-item>
-                <ion-avatar slot="start">
-                  <ion-img>
-                </ion-avatar>
-                <ion-label>
-                  <h2>Gollum</h2>
-                  <p>Sneaky little hobbitses!</p>
-                </ion-label>
-              </ion-item>
-              <ion-item>
-                <ion-avatar slot="start">
-                  <ion-img>
-                </ion-avatar>
-                <ion-label>
-                  <h2>Frodo</h2>
-                  <p>Go back, Sam! I'm going to Mordor alone!</p>
-                </ion-label>
-              </ion-item>
-              <ion-item>
-                <ion-avatar slot="start">
-                  <ion-img>
-                </ion-avatar>
-                <ion-label>
-                  <h2>Samwise</h2>
-                  <p>What we need is a few good taters.</p>
-                </ion-label>
-              </ion-item>
+            <ion-item>
+                <ion-label position="floating">Name of Entry</ion-label>
+                <ion-input clear-input required="true" id="journal-name"></ion-input>
+            </ion-item>
+ 
+            <ion-item>
+                <ion-label position="floating">Details</ion-label>
+                <ion-textarea rows="20"></ion-textarea>
+            </ion-item>
+
+            <ion-item>
+                <ion-label position="fixed">Image</ion-label>
+                <ion-input clear-input type="file" accept="image/*"></ion-input>
+            </ion-item>
+
+            <ion-button class="ion-padding" id="journal-submit" expand="block" slot="icon-only">Save Entry</ion-button>
             </ion-list>
           </ion-content>
         `;
@@ -241,7 +216,8 @@
 
         async function createModal() {
             const modal = await modalController.create({
-                component: 'modal-content'
+                component: 'modal-content',
+                cssClass: 'journal-modal-css'
             });
 
             await modal.present();
