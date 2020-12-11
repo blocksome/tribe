@@ -19,7 +19,7 @@
     <!--Hamburger Menu-->
     <ion-app class="colour">
         <ion-menu side="start" content-id="main-content" class="menu">
-            <ion-header>
+            <ion-header id="menu-header">
                 <ion-toolbar translucent>
                     <ion-title>tribe</ion-title>
                 </ion-toolbar>
@@ -62,7 +62,7 @@
                 <!--Home Page-->
                 <ion-tab tab="home">
                     <!--Header-->
-                    <ion-header>
+                    <ion-header class="app-header">
                         <ion-toolbar>
                             <ion-buttons slot="start">
                                 <ion-menu-button></ion-menu-button>
@@ -78,7 +78,7 @@
                 <!--Food Page-->
                 <ion-tab tab="food">
                     <!--Header-->
-                    <ion-header>
+                    <ion-header class="app-header">
                         <ion-toolbar>
                             <ion-buttons slot="start">
                                 <ion-menu-button></ion-menu-button>
@@ -92,9 +92,9 @@
                 </ion-tab>
 
                 <!--Alarm Page-->
-                <ion-tab tab="alarm" component="page-map">
+                <ion-tab tab="alarm">
                     <!--Header-->
-                    <ion-header>
+                    <ion-header class="app-header">
                         <ion-toolbar>
                             <ion-buttons slot="start">
                                 <ion-menu-button></ion-menu-button>
@@ -108,9 +108,9 @@
                 </ion-tab>
 
                 <!--Profile-->
-                <ion-tab tab="profile" component="page-about">
+                <ion-tab tab="profile">
                     <!--Header-->
-                    <ion-header>
+                    <ion-header class="app-header">
                         <ion-toolbar>
                             <ion-buttons slot="start">
                                 <ion-menu-button></ion-menu-button>
@@ -125,21 +125,21 @@
                 </ion-tab>
 
                 <!--Footer-->
-                <ion-tab-bar slot="bottom">
-                    <ion-tab-button tab="home" class="tab-btn">
-                        <ion-icon name="home" class="tribe-orange-c tab-icon"></ion-icon>
+                <ion-tab-bar slot="bottom" id="app-footer">
+                    <ion-tab-button tab="home" class="tab-btn home-btn">
+                        <ion-icon name="home" class="tribe-orange-c tab-icon" id="home-icon"></ion-icon>
                     </ion-tab-button>
 
-                    <ion-tab-button tab="food" class="tab-btn">
-                        <ion-icon name="restaurant-outline" class="tribe-orange-c tab-icon"></ion-icon>
+                    <ion-tab-button tab="food" class="tab-btn food-btn">
+                        <ion-icon name="restaurant-outline" class="tribe-orange-c tab-icon" id="food-icon"></ion-icon>
                     </ion-tab-button>
 
-                    <ion-tab-button tab="alarm" class="tab-btn">
-                        <ion-icon name="alarm-outline" class="tribe-orange-c tab-icon"></ion-icon>
+                    <ion-tab-button tab="alarm" class="tab-btn alarm-btn">
+                        <ion-icon name="alarm-outline" class="tribe-orange-c tab-icon" id="alarm-icon"></ion-icon>
                     </ion-tab-button>
 
-                    <ion-tab-button tab="profile" class="tab-btn">
-                        <ion-icon name="person-circle-outline" class="tribe-orange-c tab-icon"></ion-icon>
+                    <ion-tab-button tab="profile" class="tab-btn profile-btn">
+                        <ion-icon name="person-circle-outline" class="tribe-orange-c tab-icon" id="profile-icon"></ion-icon>
                     </ion-tab-button>
                 </ion-tab-bar>
 

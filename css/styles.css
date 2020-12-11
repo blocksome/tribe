@@ -1,4 +1,28 @@
 :root {
+  --ion-overlay-background-color: --ion-color-light;
+  --ion-background-color: --ion-color-tribe-tan;
+  --ion-background-color-rgb: 255,247,221;
+  --ion-text-color: #000000;
+  --ion-text-color-rgb: 0,0,0;
+  --ion-color-step-50: #f2ebd2;
+  --ion-color-step-100: #e6dec7;
+  --ion-color-step-150: #d9d2bc;
+  --ion-color-step-200: #ccc6b1;
+  --ion-color-step-250: #bfb9a6;
+  --ion-color-step-300: #b3ad9b;
+  --ion-color-step-350: #a6a190;
+  --ion-color-step-400: #999485;
+  --ion-color-step-450: #8c887a;
+  --ion-color-step-500: #807c6f;
+  --ion-color-step-550: #736f63;
+  --ion-color-step-600: #666358;
+  --ion-color-step-650: #59564d;
+  --ion-color-step-700: #4d4a42;
+  --ion-color-step-750: #403e37;
+  --ion-color-step-800: #33312c;
+  --ion-color-step-850: #262521;
+  --ion-color-step-900: #191916;
+  --ion-color-step-950: #0d0c0b;
   --ion-color-primary: #3880ff;
   --ion-color-primary-rgb: 56,128,255;
   --ion-color-primary-contrast: #ffffff;
@@ -55,6 +79,24 @@
   --ion-color-light-tint: #fff8e0;
 }
 
+:root {
+  --ion-color-tribe-tan: #FFF7DD;
+  --ion-color-tribe-tan-rgb: 255,247,221;
+  --ion-color-tribe-tan-contrast: #000000;
+  --ion-color-tribe-tan-contrast-rgb: 0,0,0;
+  --ion-color-tribe-tan-shade: #e0d9c2;
+  --ion-color-tribe-tan-tint: #fff8e0;
+}
+
+.ion-color-tribe-tan {
+  --ion-color-base: var(--ion-color-tribe-tan);
+  --ion-color-base-rgb: var(--ion-color-tribe-tan-rgb);
+  --ion-color-contrast: var(--ion-color-tribe-tan-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-tribe-tan-contrast-rgb);
+  --ion-color-shade: var(--ion-color-tribe-tan-shade);
+  --ion-color-tint: var(--ion-color-tribe-tan-tint);
+}
+
 .tab-content {
   background-color: #FFF7DD !important;
 }
@@ -67,10 +109,19 @@
   color: #E76B13;
 }
 
-#footer-tabs {
-  -webkit-box-shadow: 0px -10px #E76B13;
-          box-shadow: 0px -10px #E76B13;
-  height: 7%;
+.app-header {
+  height: 7vh;
+}
+
+#menu-header {
+  height: 7vh;
+}
+
+#app-footer {
+  background-color: white;
+  -webkit-box-shadow: 0px -5px #E76B13;
+          box-shadow: 0px -5px #E76B13;
+  height: 8vh;
   /*font-size: map-get($font-size, tab-icon);*/
 }
 

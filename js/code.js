@@ -1,12 +1,57 @@
 //Code for tribe
+
+//jQuery Listeners
+$(document).ready(function () {
+    //Tab Buttons
+    $("ion-tab-button").click(function(){
+
+        //Home
+        if($(this).attr("id") == "tab-button-home"){
+            $("#home-icon").attr("name", "home");
+            $("#food-icon").attr("name", "restaurant-outline");
+            $("#alarm-icon").attr("name", "alarm-outline");
+            $("#profile-icon").attr("name", "person-circle-outline");
+        }
+
+        //Food
+        else if($(this).attr("id") == "tab-button-food"){
+            $("#home-icon").attr("name", "home-outline");
+            $("#food-icon").attr("name", "restaurant");
+            $("#alarm-icon").attr("name", "alarm-outline");
+            $("#profile-icon").attr("name", "person-circle-outline");
+        }
+
+        //Alarm
+        else if($(this).attr("id") == "tab-button-alarm"){
+            $("#home-icon").attr("name", "home-outline");
+            $("#food-icon").attr("name", "restaurant-outline");
+            $("#alarm-icon").attr("name", "alarm");
+            $("#profile-icon").attr("name", "person-circle-outline");
+        }
+
+        //Profile
+        else if($(this).attr("id") == "tab-button-profile"){
+            $("#home-icon").attr("name", "home-outline");
+            $("#food-icon").attr("name", "restaurant-outline");
+            $("#alarm-icon").attr("name", "alarm-outline");
+            $("#profile-icon").attr("name", "person-circle");
+        }
+    })
+
+
+})
+
+
+
 //Global Variables
-var currentDate = new DateObject (new Date());
+var currentDate = new DateObject(new Date());
+
 
 //Object Templates
 //Date Object Template
-function DateObject (dateObj){
+function DateObject(dateObj) {
     this.dateObj = dateObj;
-    this.dayOfTheWeek = function(){
+    this.dayOfTheWeek = function () {
         var dayArray = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         var dayIndex = this.dateObj.getDay();
         return dayArray[dayIndex];
@@ -14,7 +59,7 @@ function DateObject (dateObj){
     this.day = dateObj.getDate();
     this.month = dateObj.getMonth();
     this.year = dateObj.getFullYear();
-    this.date = function(){
+    this.date = function () {
         //Convert int to str for concantenation
         var dayStr = this.day.toString();
         var monthStr = this.month.toString();
@@ -27,7 +72,7 @@ function DateObject (dateObj){
 };
 
 //Account Object Template
-function UserAccount (id, username, password, email, firstName, lastName, child){
+function UserAccount(id, username, password, email, firstName, lastName, child) {
     this.id = id;
     this.username = username;
     this.password = password;
@@ -38,11 +83,11 @@ function UserAccount (id, username, password, email, firstName, lastName, child)
 };
 
 //Child Object Template
-function Child (id, name, dob, weight, height){
+function Child(id, name, dob, weight, height) {
     this.id = id;
     this.name = name;
     this.dob = dob;
-    this.age = function (){
+    this.age = function () {
 
         //Find difference in years
         var yearDiff = currentDate.year - this.dob.year;
@@ -51,7 +96,7 @@ function Child (id, name, dob, weight, height){
         var monthDiff = currentDate.month - this.dob.month;
 
         //If month in entryDate is before month in childDOB
-        if(monthDiff < 0){
+        if (monthDiff < 0) {
             monthDiff = 12 + monthDiff;
             yearDiff -= 1;
         }
@@ -60,11 +105,11 @@ function Child (id, name, dob, weight, height){
         var ageReturn;
 
         //If child is older than 18 months
-        if(yearDiff > 1 && monthDiff > 6){
+        if (yearDiff > 1 && monthDiff > 6) {
             ageReturn = `${yearDiff} years ${monthDiff} months`;
         }
 
-        else{
+        else {
             ageReturn = `${monthDiff + yearDiff * 12} months`;
         }
 
@@ -75,10 +120,10 @@ function Child (id, name, dob, weight, height){
 };
 
 //Journal Object Template
-function JorunalEntry (entryName, entryDate, entryText, entryMedia){
+function JorunalEntry(entryName, entryDate, entryText, entryMedia) {
     this.entryName = entryName;
     this.entryDate = entryDate;
-    this.entryAge = function (){
+    this.entryAge = function () {
 
         //Find difference in years
         var yearDiff = entryDate.year - childDOB.year;
@@ -87,7 +132,7 @@ function JorunalEntry (entryName, entryDate, entryText, entryMedia){
         var monthDiff = entryDate.month - childDOB.month;
 
         //If month in entryDate is before month in childDOB
-        if(monthDiff < 0){
+        if (monthDiff < 0) {
             monthDiff = 12 + monthDiff;
             yearDiff -= 1;
         }
@@ -96,11 +141,11 @@ function JorunalEntry (entryName, entryDate, entryText, entryMedia){
         var ageReturn;
 
         //If child is older than 18 months
-        if(yearDiff > 1 && monthDiff > 6){
+        if (yearDiff > 1 && monthDiff > 6) {
             ageReturn = `${yearDiff} years ${monthDiff} months`;
         }
 
-        else{
+        else {
             ageReturn = `${monthDiff + yearDiff * 12} months`;
         }
 
