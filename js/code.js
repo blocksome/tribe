@@ -3,10 +3,10 @@
 //jQuery Listeners
 $(document).ready(function () {
     //Tab Buttons
-    $("ion-tab-button").click(function(){
+    $("ion-tab-button").click(function () {
 
         //Home
-        if($(this).attr("id") == "tab-button-home"){
+        if ($(this).attr("id") == "tab-button-home") {
             $("#home-icon").attr("name", "home");
             $("#food-icon").attr("name", "restaurant-outline");
             $("#alarm-icon").attr("name", "alarm-outline");
@@ -14,7 +14,7 @@ $(document).ready(function () {
         }
 
         //Food
-        else if($(this).attr("id") == "tab-button-food"){
+        else if ($(this).attr("id") == "tab-button-food") {
             $("#home-icon").attr("name", "home-outline");
             $("#food-icon").attr("name", "restaurant");
             $("#alarm-icon").attr("name", "alarm-outline");
@@ -22,7 +22,7 @@ $(document).ready(function () {
         }
 
         //Alarm
-        else if($(this).attr("id") == "tab-button-alarm"){
+        else if ($(this).attr("id") == "tab-button-alarm") {
             $("#home-icon").attr("name", "home-outline");
             $("#food-icon").attr("name", "restaurant-outline");
             $("#alarm-icon").attr("name", "alarm");
@@ -30,11 +30,19 @@ $(document).ready(function () {
         }
 
         //Profile
-        else if($(this).attr("id") == "tab-button-profile"){
+        else if ($(this).attr("id") == "tab-button-profile") {
             $("#home-icon").attr("name", "home-outline");
             $("#food-icon").attr("name", "restaurant-outline");
             $("#alarm-icon").attr("name", "alarm-outline");
             $("#profile-icon").attr("name", "person-circle");
+        }
+
+        //Add Journal Entry
+        else if ($(this).attr("id") == "add-journal-btn") {
+            $("#home-icon").attr("name", "home-outline");
+            $("#food-icon").attr("name", "restaurant-outline");
+            $("#alarm-icon").attr("name", "alarm-outline");
+            $("#profile-icon").attr("name", "person-circle-outline");
         }
     })
 

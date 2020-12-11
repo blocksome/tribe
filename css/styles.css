@@ -125,6 +125,31 @@
   /*font-size: map-get($font-size, tab-icon);*/
 }
 
+#add-journal-btn {
+  position: fixed;
+  -ms-flex-item-align: center;
+      align-self: center;
+  width: 16vw;
+  height: 16vw;
+  bottom: 5vh;
+  background-color: #E76B13;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#add-journal-btn ion-icon {
+  -ms-grid-column-align: center;
+      justify-self: center;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  text-align: center;
+  font-size: 8vh;
+  color: white;
+}
+
 .tab-btn {
   width: 100%;
 }
