@@ -386,14 +386,15 @@ $font-size: (
     position: absolute;
 
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 
     flex-direction: column;
 
     width: 100vw;
 
-    padding: 20vw;
+    padding-top: 5vh;
+    padding-bottom: 10vh;
 
     background-color: $tribe-tan;
 }
@@ -428,4 +429,6 @@ $font-size: (
 .profile-card{
     width: 90vw;
     min-height: 20vh;
+
+    background-color: $tribe-tan;
 }

@@ -63,6 +63,31 @@ $(document).ready(function () {
         }
     });
 
+    //Logout
+    $("body").on("click", "#logout-btn", function () {
+        const alert = document.createElement('ion-alert');
+        alert.cssClass = 'tribe-alert';
+        alert.header = 'Hey!';
+        alert.message = "You're about to log out, are you sure about that?";
+        alert.buttons = [
+            {
+                text: 'Cancel',
+                role: 'cancel',
+                cssClass: 'secondary'
+            },
+
+            {
+                text: 'Sign Out',
+                handler: () => {
+                    displayLoader("logout");
+                }
+            }
+        ];
+
+        document.body.appendChild(alert);
+        return alert.present();
+    });
+
     //Edit Account Details
     $("body").on("click", "#edit-account-submit", function () {
 
@@ -238,8 +263,11 @@ function updateLocalData(updatedAccount) {
 
 //Function to get local data
 function getLocalData() {
-    localAccount = JSON.parse(localStorage.getItem("storedLogin"));
-    if (localAccount) {
+    dataGet = JSON.parse(localStorage.getItem("storedLogin"));
+    if (dataGet) {
+        localChild = new Child(dataGet.child.id, dataGet.child.name, dataGet.child.dob, dataGet.child.dob, dataGet.child.weight, dataGet.child.height);
+        localAccount = new UserAccount(dataGet.id, dataGet.email, dataGet.password, dataGet.firstName, dataGet.lastName, localChild, dataGet.journalEntries);
+
         loadApp();
     }
 
@@ -381,7 +409,15 @@ async function displayLoader(reason) {
         register();
     }
 
-    else if (reason == "edit-account"){
+    else if (reason == "logout") {
+        //Removing local login info
+        localStorage.removeItem("storedLogin");
+        localAccount = {};
+
+        loadLogin();
+    }
+
+    else if (reason == "edit-account") {
         //Present Success Alert
         const alert = document.createElement('ion-alert');
         alert.cssClass = 'tribe-alert';
@@ -393,13 +429,13 @@ async function displayLoader(reason) {
                 dismissSettingsModal();
                 dismissEditAccountModal();
             }
-          }];
+        }];
 
         document.body.appendChild(alert);
         return alert.present();
     }
 
-    else if (reason == "edit-child"){
+    else if (reason == "edit-child") {
         //Present Success Alert
         const alert = document.createElement('ion-alert');
         alert.cssClass = 'tribe-alert';
@@ -411,7 +447,7 @@ async function displayLoader(reason) {
                 dismissSettingsModal();
                 dismissEditChildModal();
             }
-          }];
+        }];
 
         document.body.appendChild(alert);
         return alert.present();
@@ -430,7 +466,7 @@ async function displayLoader(reason) {
             handler: () => {
                 displayLoader("load-profile");
             }
-          }];
+        }];
 
         document.body.appendChild(alert);
         return alert.present();
