@@ -153,8 +153,14 @@
   font-size: 4vw;
 }
 
-.tribe-alert .alert-wrapper {
-  background-color: white;
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.tribe-alert .alert-wrapper, ion-backdrop div, .picker-wrapper div {
+  background-color: white !important;
 }
 
 #hamburger-title {
@@ -184,6 +190,38 @@
 
 #logout-btn {
   margin-top: auto;
+}
+
+#settings-slides {
+  height: 90vh;
+}
+
+#settings-slides ion-slide {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  padding-top: 7vh;
+}
+
+.settings-item {
+  width: 90vw;
+}
+
+.settings-label {
+  --color: black;
+}
+
+.settings-label-display, .edit-account-input, .edit-child-input, .datetime-text {
+  text-align: right;
+}
+
+#edit-child-dob {
+  margin-left: auto;
+  margin-right: 7vw;
 }
 
 #menu-header {
@@ -261,40 +299,65 @@
   --width: 500px;
 }
 
-.journal-modal-css .modal-wrapper {
+.settings-modal .modal-wrapper {
+  height: 100%;
+  top: 0;
+  position: absolute;
+  display: block;
+}
+
+.journal-modal .modal-wrapper {
   height: 100%;
   top: 20%;
   position: absolute;
   display: block;
 }
 
-#close-journal-btn {
+#close-settings-btn, #close-journal-btn, #close-edit-account-btn, #close-edit-child-btn {
   position: relative;
   font-size: 30px;
   right: 2vw;
 }
 
+#profile-content {
+  max-height: 100vh;
+  background-color: white;
+  overflow: scroll;
+}
+
 #profile-body {
-  bottom: 0;
+  top: 40vh;
   left: 0;
   width: 100vw;
-  height: 65vh;
+  min-height: 52vh;
   -webkit-box-shadow: 0 -4px 2px rgba(0, 0, 0, 0.116);
           box-shadow: 0 -4px 2px rgba(0, 0, 0, 0.116);
-  border-radius: 30px;
+  border-radius: 30px 30px 0 0;
   background-color: white;
   position: fixed;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  overflow: scroll;
+  padding-top: 20px;
+  position: absolute;
+}
+
+#profile-buffer {
+  min-height: 40vh;
 }
 
 #profile-avatar-div {
-  position: relative;
-  bottom: 30vh;
+  left: 0;
+  top: 0;
+  position: absolute;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -308,6 +371,9 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  width: 100vw;
+  padding: 20vw;
+  background-color: #FFF7DD;
 }
 
 #profile-avatar-circle {
@@ -324,6 +390,8 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-shadow: 0 4px 2px rgba(0, 0, 0, 0.116);
+          box-shadow: 0 4px 2px rgba(0, 0, 0, 0.116);
 }
 
 #profile-avatar {
@@ -331,5 +399,14 @@
   height: 35vw;
   max-width: 35vw;
   max-height: 35vw;
+}
+
+.profile-item {
+  min-height: 15vh;
+}
+
+.profile-card {
+  width: 90vw;
+  min-height: 20vh;
 }
 /*# sourceMappingURL=styles.css.map */

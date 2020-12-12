@@ -22,7 +22,7 @@
     <ion-app>
 
     </ion-app>
-    
+
     <!--Javascript-->
     <!--Ionic-->
     <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
@@ -55,9 +55,253 @@
 
     </script>
 
+    <!--Settings Menu-->
+    <script>
+        customElements.define('settings-modal-content', class ModalContent extends HTMLElement {
+            connectedCallback() {
+                this.innerHTML = `
+          <ion-header translucent class="white-bg">
+            <ion-toolbar>
+              <ion-title>Settings</ion-title>
+              <ion-buttons slot="end">
+                <ion-icon name="close-outline" id="close-settings-btn"></ion-icon>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+
+          <ion-content class="white-bg">
+            <ion-slides pager="true" id="settings-slides">
+
+                <!--Account Details Slide-->
+                <ion-slide>
+
+                    <ion-toolbar>
+                        <ion-title>Account Details</ion-title>
+                    </ion-toolbar>
+
+                    <ion-list>
+                        <ion-item class="settings-item">
+                            <ion-label class="settings-label">First Name</ion-label>
+                            <ion-label class="settings-label settings-label-display">${localAccount.firstName}</ion-label>
+                        </ion-item>
+            
+                        <ion-item>
+                            <ion-label class="settings-label">Last Name</ion-label>
+                            <ion-label class="settings-label settings-label-display">${localAccount.lastName}</ion-label>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label class="settings-label">Email</ion-label>
+                            <ion-label class="settings-label settings-label-display">${localAccount.email}</ion-label>
+                        </ion-item>
+
+                        <ion-item class="settings-item">
+                            <ion-label class="settings-label">Password</ion-label>
+                            <ion-label class="settings-label settings-label-display">**********</ion-label>
+                        </ion-item>
+
+                        <ion-button class="ion-padding" id="edit-account-btn" expand="block" slot="icon-only">Edit Details</ion-button>
+                    </ion-list>
+                </ion-slide>
+
+                <!--Child Details Slide-->
+                <ion-slide>
+
+                    <ion-toolbar>
+                        <ion-title>Child Details</ion-title>
+                    </ion-toolbar>
+
+                    <ion-list>
+                        <ion-item class="settings-item">
+                            <ion-label class="settings-label">Name</ion-label>
+                            <ion-label class="settings-label settings-label-display">${localAccount.child.name}</ion-label>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label class="settings-label">Date of Birth</ion-label>
+                            <ion-label class="settings-label settings-label-display">${localAccount.child.dob.day} ${localAccount.child.dob.month2} ${localAccount.child.dob.year}</ion-label>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label class="settings-label">Gender</ion-label>
+                            <ion-label class="settings-label settings-label-display">${localAccount.child.gender}</ion-label>
+                        </ion-item>
+
+                        <ion-button class="ion-padding" id="edit-child-btn" expand="block" slot="icon-only">Edit Details</ion-button>
+                    </ion-list>
+                </ion-slide>
+
+            </ion-slides>
+          </ion-content>
+        `;
+            }
+        });
+
+        let currentSettingsModal = null;
+        $("body").on("click", "#settings-btn", function () {
+            createSettingsModal();
+        });
+
+        $("body").on("click", "#close-settings-btn", function () {
+            dismissSettingsModal();
+        });
+
+        async function createSettingsModal() {
+            const modal = await modalController.create({
+                component: 'settings-modal-content',
+                cssClass: 'settings-modal'
+            });
+
+            await modal.present();
+            currentSettingsModal = modal;
+        }
+
+        function dismissSettingsModal() {
+            if (currentSettingsModal) {
+                currentSettingsModal.dismiss().then(() => { currentSettingsModal = null; });
+            }
+        }
+
+    </script>
+
+<!--Account Details Editor-->
+<script>
+    customElements.define('edit-account-modal-content', class ModalContent extends HTMLElement {
+        connectedCallback() {
+            this.innerHTML = `
+      <ion-header translucent class="white-bg">
+        <ion-toolbar>
+          <ion-title>Edit Account Details</ion-title>
+          <ion-buttons slot="end">
+            <ion-icon name="close-outline" id="close-edit-account-btn"></ion-icon>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content class="white-bg">
+        <ion-list>
+        <ion-item>
+            <ion-label position="fixed">First Name</ion-label>
+            <ion-input clear-input required="true" value="${localAccount.firstName}" id="edit-account-firstname" class="edit-account-input"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="fixed">Last Name</ion-label>
+            <ion-input clear-input required="true" value="${localAccount.lastName}" id="edit-account-lastname" class="edit-account-input"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="fixed">Email</ion-label>
+            <ion-input clear-input required="true" value="${localAccount.email}" id="edit-account-email" class="edit-account-input"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="fixed">Password</ion-label>
+            <ion-input clear-input required="true" value="${localAccount.password}" id="edit-account-password" class="edit-account-input"></ion-input>
+        </ion-item>
+
+        <ion-button class="ion-padding" id="edit-account-submit" expand="block" slot="icon-only">Save Changes</ion-button>
+        </ion-list>
+      </ion-content>
+    `;
+        }
+    });
+
+    let currentEditAccountModal = null;
+    $("body").on("click", "#edit-account-btn", function () {
+        createEditAccountModal();
+    });
+
+    $("body").on("click", "#close-edit-account-btn", function () {
+        dismissEditAccountModal();
+    });
+
+    async function createEditAccountModal() {
+        const modal = await modalController.create({
+            component: 'edit-account-modal-content',
+            cssClass: 'edit-account-modal'
+        });
+
+        await modal.present();
+        currentEditAccountModal = modal;
+    }
+
+    function dismissEditAccountModal() {
+        if (currentEditAccountModal) {
+            currentEditAccountModal.dismiss().then(() => { currentEditAccountModal = null; });
+        }
+    }
+
+</script>
+
+<!--Child Details Editor-->
+<script>
+    customElements.define('edit-child-modal-content', class ModalContent extends HTMLElement {
+        connectedCallback() {
+            this.innerHTML = `
+      <ion-header translucent class="white-bg">
+        <ion-toolbar>
+          <ion-title>Edit Child Details</ion-title>
+          <ion-buttons slot="end">
+            <ion-icon name="close-outline" id="close-edit-child-btn"></ion-icon>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content class="white-bg">
+        <ion-list>
+        <ion-item>
+            <ion-label position="fixed">Name</ion-label>
+            <ion-input clear-input required="true" value="${localAccount.child.name}" id="edit-child-name" class="edit-child-input"></ion-input>
+        </ion-item>
+
+        <ion-item class="flex">
+            <ion-label position="fixed">Date of Birth</ion-label>
+            <ion-datetime display-format="D MMM YYYY" placeholder="Select Date" value="${localAccount.child.dateObj}" id="edit-child-dob" class="edit-child-input"></ion-datetime>
+        </ion-item>
+            
+        <ion-item>
+            <ion-label position="fixed">Gender</ion-label>
+            <ion-input clear-input required="true" value="${localAccount.child.gender}" id="edit-child-gender" class="edit-child-input"></ion-input>
+        </ion-item>
+                
+                <ion-button class="ion-padding" id="edit-child-submit" expand="block" slot="icon-only">Save Changes</ion-button>
+        </ion-list>
+      </ion-content>
+    `;
+        }
+    });
+
+    let currentEditChildModal = null;
+    $("body").on("click", "#edit-child-btn", function () {
+        createEditChildModal();
+    });
+
+    $("body").on("click", "#close-edit-child-btn", function () {
+        dismissEditChildModal();
+    });
+
+    async function createEditChildModal() {
+        const modal = await modalController.create({
+            component: 'edit-child-modal-content',
+            cssClass: 'edit-child-modal'
+        });
+
+        await modal.present();
+        currentEditChildModal = modal;
+    }
+
+    function dismissEditChildModal() {
+        if (currentEditChildModal) {
+            currentEditChildModal.dismiss().then(() => { currentEditChildModal = null; });
+        }
+    }
+
+</script>
+
     <!--Journal Entry Maker-->
     <script>
-        customElements.define('modal-content', class ModalContent extends HTMLElement {
+        customElements.define('journal-modal-content', class ModalContent extends HTMLElement {
             connectedCallback() {
                 this.innerHTML = `
           <ion-header translucent class="white-bg">
@@ -93,33 +337,32 @@
             }
         });
 
-        let currentModal = null;
-        $("body").on("click", "#add-journal-btn", function(){
-            createModal();
+        let currentJournalModal = null;
+        $("body").on("click", "#add-journal-btn", function () {
+            createJournalModal();
         });
 
-        $("body").on("click", "#close-journal-btn", function(){
-            dismissModal();
+        $("body").on("click", "#close-journal-btn", function () {
+            dismissJournalModal();
         });
 
-        async function createModal() {
+        async function createJournalModal() {
             const modal = await modalController.create({
-                component: 'modal-content',
-                cssClass: 'journal-modal-css'
+                component: 'journal-modal-content',
+                cssClass: 'journal-modal'
             });
 
             await modal.present();
-            currentModal = modal;
+            currentJournalModal = modal;
         }
 
-        function dismissModal() {
-            if (currentModal) {
-                currentModal.dismiss().then(() => { currentModal = null; });
+        function dismissJournalModal() {
+            if (currentJournalModal) {
+                currentJournalModal.dismiss().then(() => { currentJournalModal = null; });
             }
         }
 
     </script>
-
 </body>
 
 </html>

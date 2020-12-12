@@ -9,7 +9,7 @@
 
     <ion-content class="menu white-bg">
         <ion-list id="hamburger-list">
-            <ion-item>
+            <ion-item id="settings-btn">
                 <ion-icon name="settings" side="end" slot="end"></ion-icon>
                 <ion-label>Settings</ion-label>
             </ion-item>
@@ -87,24 +87,27 @@
                     <ion-title>Profile</ion-title>
                 </ion-toolbar>
             </ion-header>
-            <ion-content class="ion-padding tab-content">
-                <div id="profile-body">
-                    <!--Profile Avatar-->
-                    <!--joses put stuff abt baby journal here thanks, goodnight-->
-                    <div id="profile-avatar-div">
-                        <div id="profile-avatar-circle">
-                            <ion-avatar id="profile-avatar">
-                                <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-                            </ion-avatar>
-                        </div>
 
-                        <h2 id="profile-name"></h2>
-                        <h2 id="profile-age"></h2>
+            <ion-content class="ion-padding tab-content" id="profile-content">
+                <div id="profile-buffer"></div>
+                <!--Profile Avatar-->
+                <div id="profile-avatar-div">
+                    <div id="profile-avatar-circle">
+                        <ion-avatar id="profile-avatar">
+                            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+                        </ion-avatar>
                     </div>
 
+                    <h2 id="profile-name"></h2>
+                    <h2 id="profile-age"></h2>
+                </div>
 
+                <!--Profile List-->
+                <div id="profile-body">
 
                 </div>
+
+
             </ion-content>
 
         </ion-tab>

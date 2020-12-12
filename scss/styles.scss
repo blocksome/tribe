@@ -185,8 +185,12 @@ $font-size: (
 }
 
 //General Styling
-.tribe-alert .alert-wrapper{
-    background-color: white;
+.flex{
+    display: flex;
+}
+
+.tribe-alert .alert-wrapper, ion-backdrop div, .picker-wrapper div{
+    background-color: white !important;
 }
 
 #hamburger-title{
@@ -213,6 +217,34 @@ $font-size: (
 
 #logout-btn{
     margin-top: auto;
+}
+
+#settings-slides{
+    height: 90vh;
+}
+
+#settings-slides ion-slide{
+    flex-direction: column;
+    justify-content: flex-start;
+
+    padding-top: 7vh;
+}
+
+.settings-item{
+    width: 90vw;
+}
+
+.settings-label{
+    --color: black;
+}
+
+.settings-label-display, .edit-account-input, .edit-child-input, .datetime-text{
+    text-align: right;
+}
+
+#edit-child-dob{
+    margin-left: auto;
+    margin-right: 7vw;
 }
 
 #menu-header{
@@ -292,51 +324,81 @@ $font-size: (
     --width: 500px;
   }
 
-  .journal-modal-css .modal-wrapper {
+  .settings-modal .modal-wrapper {
+    height: 100%;
+    top: 0;
+    position: absolute; 
+    display: block;  
+ }
+
+.journal-modal .modal-wrapper {
     height: 100%;
     top: 20%;
     position: absolute; 
     display: block;  
  }
 
- #close-journal-btn{
-     position: relative;
-     font-size: 30px;
-     right: 2vw;
- }
+ #close-settings-btn, #close-journal-btn, #close-edit-account-btn, #close-edit-child-btn{
+    position: relative;
+    font-size: 30px;
+    right: 2vw;
+}
 
-  
 //Profile Styling
+
+#profile-content{
+    max-height: 100vh;
+    background-color: white;
+
+    overflow: scroll;
+}
+
 #profile-body{
-    bottom: 0;
+    top: 40vh;
     left: 0;
     width: 100vw;
-    height: 65vh;
+    min-height: 52vh;
 
     box-shadow: 0 -4px 2px rgba(0, 0, 0, 0.116);
-    border-radius: 30px;
+    border-radius: 30px 30px 0 0;
     background-color: white;
     position: fixed;
 
     display: flex;
+    flex-direction: column;
 
     justify-content: center;
+
+    overflow: scroll;
+
+    padding-top: 20px;
+
+    position: absolute;
+}
+
+#profile-buffer{
+    min-height: 40vh;
 }
 
 #profile-avatar-div{
-    position: relative;
-    bottom: 30vh;
+    left: 0;
+    top: 0;
+    position: absolute;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
     flex-direction: column;
+
+    width: 100vw;
+
+    padding: 20vw;
+
+    background-color: $tribe-tan;
 }
 
 #profile-avatar-circle{    
-    
-    
     background-color: white;
 
     width: 38vw;
@@ -348,6 +410,8 @@ $font-size: (
 
     justify-content: center;
     align-items: center;
+
+    box-shadow: 0 4px 2px rgba(0, 0, 0, 0.116);
 }
 
 #profile-avatar{
@@ -355,4 +419,13 @@ $font-size: (
     height: 35vw;
     max-width: 35vw;
     max-height: 35vw;
+}
+
+.profile-item{
+    min-height: 15vh;
+}
+
+.profile-card{
+    width: 90vw;
+    min-height: 20vh;
 }

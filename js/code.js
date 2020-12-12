@@ -18,6 +18,9 @@ var entryArray = [];
 //Current Date
 var currentDate = new DateObject(new Date());
 
+//Booleans
+var isProfileLoaded = false;
+
 //Do stuff on document
 $(document).ready(function () {
 
@@ -32,9 +35,6 @@ $(document).ready(function () {
     getLocalData();
 
     //Insert code here for login testing
-
-    //jQuery to display data
-    $("profile-name").text();
 
     //jQuery Listeners
     //Login Button
@@ -63,10 +63,81 @@ $(document).ready(function () {
         }
     });
 
+    //Edit Account Details
+    $("body").on("click", "#edit-account-submit", function () {
+
+        const alert = document.createElement('ion-alert');
+        alert.cssClass = 'tribe-alert';
+        alert.header = 'Hey!';
+        alert.buttons = ['OK'];
+
+        //Storing input values as variables
+        var accountFirstName = $("#edit-account-firstname:nth-child(2)").val();
+        var accountLastName = $("#edit-account-lastname:nth-child(2)").val();
+        var accountEmail = $("#edit-account-email:nth-child(2)").val();
+        var accountPassword = $("#edit-account-password:nth-child(2)").val();
+
+        //Verify if entry name is blank  
+        if (accountFirstName == "") {
+            alert.message = "You can't leave your first name empty.";
+
+            document.body.appendChild(alert);
+            return alert.present();
+        }
+
+        else if (accountLastName == "") {
+            alert.message = "You can't leave your last name empty.";
+
+            document.body.appendChild(alert);
+            return alert.present();
+        }
+
+        else if (accountEmail == "") {
+            alert.message = "You can't leave your email empty.";
+
+            document.body.appendChild(alert);
+            return alert.present();
+        }
+
+        if (accountPassword == "") {
+            alert.message = "You can't leave your password empty.";
+
+            document.body.appendChild(alert);
+            return alert.present();
+        }
+
+        //Save Changes
+        else {
+
+            //Updating local data
+            localAccount.firstName = accountFirstName;
+            localAccount.lastName = accountLastName;
+            localAccount.email = accountEmail;
+            localAccount.password = accountPassword;
+
+            updateLocalData(localAccount);
+
+            //Updating database
+            //Look for user in array
+            for (var i = 0; i < accountsArray.length; i++) {
+                if (accountsArray[i].id == localAccount.id) {
+                    accountsArray.splice(i, 1, localAccount);
+
+                    console.log(accountsArray);
+
+                    displayLoader("edit-account");
+
+                    //Sending data to database
+                    updateData(accountsArray);
+                }
+            }
+        }
+    });
+
     //Journal Submit
     $("body").on("click", "#journal-submit", function () {
 
-        //Storing input valuesa as variables
+        //Storing input values as variables
         var journalName = $("#journal-name:nth-child(2)").val();
         var journalDetails = $("#journal-details:nth-child(2)").val();
         var journalImage = $("#journal-image:nth-child(2)").val();
@@ -89,6 +160,7 @@ $(document).ready(function () {
             //Updating local user
             var newEntry = new JournalEntry(journalName, currentDate, journalDetails, journalImage);
             localAccount.journalEntries.push(newEntry);
+            updateLocalData(localAccount);
 
             console.log(localAccount.journalEntries);
 
@@ -103,7 +175,6 @@ $(document).ready(function () {
                     displayLoader("new-entry");
 
                     //Sending data to database
-                    updateLocalData(localAccount);
                     updateData(accountsArray);
                 }
             }
@@ -111,6 +182,7 @@ $(document).ready(function () {
 
         }
     });
+
 
     //Tab Buttons
     $("body").on("click", "ion-tab-button", function () {
@@ -145,6 +217,11 @@ $(document).ready(function () {
             $("#food-icon").attr("name", "restaurant-outline");
             $("#alarm-icon").attr("name", "alarm-outline");
             $("#profile-icon").attr("name", "person-circle");
+
+            //Add journal entries to profile
+            if (isProfileLoaded == false) {
+                displayLoader("load-profile");
+            }
         }
 
     })
@@ -229,11 +306,6 @@ function getData() {
 //Function that loads html
 function loadApp() {
     $("ion-app").load("main-app.html");
-
-    for(var i = 0; i < localAccount.journalEntries.length; i++){
-        
-
-    }
 };
 
 function loadLogin() {
@@ -309,22 +381,104 @@ async function displayLoader(reason) {
         register();
     }
 
+    else if (reason == "edit-account"){
+        //Present Success Alert
+        const alert = document.createElement('ion-alert');
+        alert.cssClass = 'tribe-alert';
+        alert.header = 'Done!';
+        alert.message = "Your account details have been updated, yay!";
+        alert.buttons = [{
+            text: 'OK',
+            handler: () => {
+                dismissSettingsModal();
+                dismissEditAccountModal();
+            }
+          }];
+
+        document.body.appendChild(alert);
+        return alert.present();
+    }
+
+    else if (reason == "edit-child"){
+        //Present Success Alert
+        const alert = document.createElement('ion-alert');
+        alert.cssClass = 'tribe-alert';
+        alert.header = 'Done!';
+        alert.message = "Your child's details have been updated, yay!";
+        alert.buttons = [{
+            text: 'OK',
+            handler: () => {
+                dismissSettingsModal();
+                dismissEditChildModal();
+            }
+          }];
+
+        document.body.appendChild(alert);
+        return alert.present();
+    }
+
     else if (reason == "new-entry") {
+        //Make sure 
+
         //Present Success Alert
         const alert = document.createElement('ion-alert');
         alert.cssClass = 'tribe-alert';
         alert.header = 'Done!';
         alert.message = "New journal entry added, yay!";
-        alert.buttons = ['OK'];
+        alert.buttons = [{
+            text: 'OK',
+            handler: () => {
+                displayLoader("load-profile");
+            }
+          }];
 
         document.body.appendChild(alert);
         return alert.present();
+    }
+
+    else if (reason == "load-profile") {
+        //Clear profile
+        $(".profile-item").remove();
+
+        //Add account details
+        $("#profile-name").text(localAccount.child.name);
+        $("#profile-age").text(localAccount.child.age());
+
+        //Add entries one by one
+        for (var i = 0; i < localAccount.journalEntries.length; i++) {
+            //If there was no image attached
+            if (localAccount.journalEntries[i].entryMedia == "" || localAccount.journalEntries[i].entryMedia == null) {
+                $("#profile-body").after(`
+                <ion-item class="profile-item">
+            <ion-card class="profile-card">
+                <img src="" />
+                <ion-card-header>
+                    <ion-card-subtitle>${localAccount.journalEntries[i].entryDate.dateObj}</ion-card-subtitle>
+                    <ion-card-title>${localAccount.journalEntries[i].entryName}</ion-card-title>
+                </ion-card-header>
+
+                <ion-card-content>
+                    ${localAccount.journalEntries[i].entryText}
+                </ion-card-content>
+            </ion-card>
+            </ion-item>
+            `);
+            }
+
+            else {
+                //do stuff here if there's an img
+            }
+
+
+        }
+
+        isProfileLoaded = true;
     }
 }
 
 //Object Templates
 
-//Date Object Template
+//Date Obvarject Template
 function DateObject(dateObj) {
     this.dateObj = dateObj;
     this.dayOfTheWeek = function () {
@@ -334,6 +488,20 @@ function DateObject(dateObj) {
     };
     this.day = dateObj.getDate();
     this.month = dateObj.getMonth() + 1;
+
+    var monthArrayShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", 'Dec'];
+    var monthArrayFull = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", 'December'];
+    var monthIndex = this.month - 1;
+
+
+
+    this.month2 = function () {
+        return monthArrayShort[monthIndex];
+    }
+    this.month3 = function () {
+        return monthArrayFull[monthIndex];
+    }
+
     this.year = dateObj.getFullYear();
     this.date = function () {
         //Convert int to str for concantenation
