@@ -1,3 +1,5 @@
+<!--Main App for tribe-->
+
 <!doctype html>
 <html lang="en">
 
@@ -16,132 +18,11 @@
 
 <body>
 
-    <!--App-->
+    <!--App to be loaded on document ready-->
     <ion-app>
-        <!--Hamburger Menu-->
-        <ion-menu side="start" content-id="main-content" class="menu">
-            <ion-header id="menu-header" class="white-bg menu-header">
-                <ion-toolbar translucent>
-                    <ion-title id="hamburger-title"><img id="hamburger-logo" src="images/logo.png"></ion-title>
-                </ion-toolbar>
-            </ion-header>
-
-
-            <ion-content class="menu white-bg">
-                <ion-list>
-                    <ion-item>
-                        <ion-icon name="settings" slot="end"></ion-icon>
-                        <ion-label>Settings</ion-label>
-                    </ion-item>
-                </ion-list>
-            </ion-content>
-        </ion-menu>
-
-        <!--Pages and Main Content-->
-        <div class="ion-page menu" id="main-content">
-
-            <ion-tabs>
-                <!--Home Page-->
-                <ion-tab tab="home">
-                    <!--Header-->
-                    <ion-header class="app-header">
-                        <ion-toolbar>
-                            <ion-buttons slot="start">
-                                <ion-menu-button></ion-menu-button>
-                            </ion-buttons>
-                            <ion-title>Home</ion-title>
-                        </ion-toolbar>
-                    </ion-header>
-                    <ion-content class="ion-padding tab-content">
-
-                    </ion-content>
-                </ion-tab>
-
-                <!--Food Page-->
-                <ion-tab tab="food">
-                    <!--Header-->
-                    <ion-header class="app-header">
-                        <ion-toolbar>
-                            <ion-buttons slot="start">
-                                <ion-menu-button></ion-menu-button>
-                            </ion-buttons>
-                            <ion-title>Food</ion-title>
-                        </ion-toolbar>
-                    </ion-header>
-                    <ion-content class="ion-padding tab-content">
-
-                    </ion-content>
-                </ion-tab>
-
-                <!--Alarm Page-->
-                <ion-tab tab="alarm">
-                    <!--Header-->
-                    <ion-header class="app-header">
-                        <ion-toolbar>
-                            <ion-buttons slot="start">
-                                <ion-menu-button></ion-menu-button>
-                            </ion-buttons>
-                            <ion-title>Alarm</ion-title>
-                        </ion-toolbar>
-                    </ion-header>
-                    <ion-content class="ion-padding tab-content">
-
-                    </ion-content>
-                </ion-tab>
-
-                <!--Profile-->
-                <ion-tab tab="profile">
-                    <!--Header-->
-                    <ion-header class="app-header">
-                        <ion-toolbar>
-                            <ion-buttons slot="start">
-                                <ion-menu-button></ion-menu-button>
-                            </ion-buttons>
-                            <ion-title>Profile</ion-title>
-                        </ion-toolbar>
-                    </ion-header>
-                    <ion-content class="ion-padding tab-content">
-                        <div id="profile-body">
-
-                        </div>
-                    </ion-content>
-
-                </ion-tab>
-
-                <!--Footer-->
-                <ion-tab-bar slot="bottom" id="app-footer">
-
-                    <ion-tab-button tab="home" class="tab-btn home-btn">
-                        <ion-icon name="home" class="tribe-orange-c tab-icon" id="home-icon"></ion-icon>
-                    </ion-tab-button>
-
-                    <ion-tab-button tab="food" class="tab-btn food-btn">
-                        <ion-icon name="restaurant-outline" class="tribe-orange-c tab-icon" id="food-icon"></ion-icon>
-                    </ion-tab-button>
-
-                    <ion-tab-button tab="alarm" class="tab-btn alarm-btn">
-                        <ion-icon name="alarm-outline" class="tribe-orange-c tab-icon" id="alarm-icon"></ion-icon>
-                    </ion-tab-button>
-
-                    <ion-tab-button tab="profile" class="tab-btn profile-btn">
-                        <ion-icon name="person-circle-outline" class="tribe-orange-c tab-icon" id="profile-icon">
-                        </ion-icon>
-                    </ion-tab-button>
-                </ion-tab-bar>
-
-            </ion-tabs>
-        </div>
-
-        <div id="add-journal-btn">
-            <ion-icon name="add-circle" class="tribe-orange-c tab-icon" id="add-journal-btn">
-            </ion-icon>
-        </div>
 
     </ion-app>
-
-
-
-
+    
     <!--Javascript-->
     <!--Ionic-->
     <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
@@ -183,7 +64,7 @@
             <ion-toolbar>
               <ion-title>New Journal Entry</ion-title>
               <ion-buttons slot="end">
-                <ion-icon name="close-outline" id="journal-close-btn" onclick="dismissModal()"></ion-icon>
+                <ion-icon name="close-outline" id="close-journal-btn"></ion-icon>
               </ion-buttons>
             </ion-toolbar>
           </ion-header>
@@ -213,8 +94,13 @@
         });
 
         let currentModal = null;
-        const button = document.getElementById('add-journal-btn');
-        button.addEventListener('click', createModal);
+        $("body").on("click", "#add-journal-btn", function(){
+            createModal();
+        });
+
+        $("body").on("click", "#close-journal-btn", function(){
+            dismissModal();
+        });
 
         async function createModal() {
             const modal = await modalController.create({

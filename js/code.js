@@ -1,11 +1,68 @@
 //Code for tribe
 
-//Do stuff on document load
+//Global Variables
+//Database Login Details
+var apiKey = "5e265bf14327326cf1c919e3";
+var myDB = "pf2test-9f8d";
+var myCollection = "test";
+
+//Account Data Array (all users)
+var accountsArray = [];
+
+//User Account Local Object (1 user)
+var localAccount;
+
+//Journal Entry Array (1 user)
+var entryArray = [];
+
+//Current Date
+var currentDate = new DateObject(new Date());
+
+//Do stuff on document
 $(document).ready(function () {
 
+    //Hide Footer on load
+    $("#app-footer").hide();
+    $("#add-journal-btn").hide();
 
+    //Load database
+    getData();
+
+    //Load Localstorage
+    getLocalData();
+
+    //Insert code here for login testing
+
+    //jQuery to display data
+    $("profile-name").text();
 
     //jQuery Listeners
+    //Login Button
+    $("body").on("click", "#login-btn", function () {
+        const alert = document.createElement('ion-alert');
+        alert.cssClass = 'tribe-alert';
+        alert.header = 'Hey!';
+        alert.buttons = ['OK'];
+
+        if ($("#login-email:nth-child(2)").val() == "") {
+            alert.message = "Please provide your login email";
+
+            document.body.appendChild(alert);
+            return alert.present();
+        }
+
+        else if ($("#login-password:nth-child(3)").val() == "") {
+            alert.message = "Please provide your login password";
+
+            document.body.appendChild(alert);
+            return alert.present();
+        }
+
+        else {
+            displayLoader("login");
+        }
+    });
+
     //Journal Submit
     $("body").on("click", "#journal-submit", function () {
 
@@ -15,9 +72,9 @@ $(document).ready(function () {
         var journalImage = $("#journal-image:nth-child(2)").val();
 
         //Verify if entry name is blank  
-        if ($("#journal-name:nth-child(2)").val() == "") {
+        if (journalName == "") {
             const alert = document.createElement('ion-alert');
-            alert.cssClass = 'entry-name-empty-alert';
+            alert.cssClass = 'tribe-alert';
             alert.header = 'Hey!';
             alert.message = "You can't leave the entry name empty.";
             alert.buttons = ['OK'];
@@ -33,21 +90,30 @@ $(document).ready(function () {
             var newEntry = new JournalEntry(journalName, currentDate, journalDetails, journalImage);
             localAccount.journalEntries.push(newEntry);
 
+            console.log(localAccount.journalEntries);
+
             //Updating local user in the account data
             //Look for user in array
-            for(var i; i < accountsArray.length; i++){
-                if(accountsArray[i].id == localAccount.id){
+            for (var i = 0; i < accountsArray.length; i++) {
+                if (accountsArray[i].id == localAccount.id) {
                     accountsArray.splice(i, 1, localAccount);
+
+                    console.log(accountsArray);
+
+                    displayLoader("new-entry");
+
+                    //Sending data to database
+                    updateLocalData(localAccount);
+                    updateData(accountsArray);
                 }
             }
 
-            //Sending data to database
-            UpdateData(accountsArray);
+
         }
     });
 
     //Tab Buttons
-    $("ion-tab-button").click(function () {
+    $("body").on("click", "ion-tab-button", function () {
 
         //Home
         if ($(this).attr("id") == "tab-button-home") {
@@ -81,39 +147,30 @@ $(document).ready(function () {
             $("#profile-icon").attr("name", "person-circle");
         }
 
-        //Add Journal Entry
-        else if ($(this).attr("id") == "add-journal-btn") {
-            $("#home-icon").attr("name", "home-outline");
-            $("#food-icon").attr("name", "restaurant-outline");
-            $("#alarm-icon").attr("name", "alarm-outline");
-            $("#profile-icon").attr("name", "person-circle-outline");
-        }
     })
 
 
 })
 
-
-
-//Global Variables
-//Database Login Details
-var apiKey = "5e265bf14327326cf1c919e3";
-var myDB = "pf2test-9f8d";
-var myCollection = "test";
-
-//Account Data Array (all users)
-var accountsArray = [];
-
-//User Account Local (1 user)
-var localAccount;
-
-//Journal Entry Array (1 user)
-var entryArray = [];
-
-//Current Date
-var currentDate = new DateObject(new Date());
-
 //Functions
+//Function to update local data
+function updateLocalData(updatedAccount) {
+    var submitData = JSON.stringify(updatedAccount);
+    localStorage.setItem("storedLogin", submitData);
+}
+
+//Function to get local data
+function getLocalData() {
+    localAccount = JSON.parse(localStorage.getItem("storedLogin"));
+    if (localAccount) {
+        loadApp();
+    }
+
+    else {
+        loadLogin();
+    }
+}
+
 //Function to update database
 function updateData(updatedArray) {
 
@@ -160,11 +217,109 @@ function getData() {
     }
 
     $.ajax(settings).done(function (data) {
-        console.log("successfully log into db");
+        console.log("Data successfully retrieved.");
         console.log(data);
 
         accountsArray = data[0].accountsArray;
     });
+}
+
+//========================================
+//Area for loading login/app
+//Function that loads html
+function loadApp() {
+    $("ion-app").load("main-app.html");
+
+    for(var i = 0; i < localAccount.journalEntries.length; i++){
+        
+
+    }
+};
+
+function loadLogin() {
+    $("ion-app").load("login.html");
+}
+//========================================
+
+//User login function
+function login() {
+    //Alert for invalid logins
+    const alert = document.createElement('ion-alert');
+    alert.cssClass = 'tribe-alert';
+    alert.header = 'Whoops';
+    alert.buttons = ['OK'];
+
+    //Run login details through all accounts in database
+    for (var i = 0; i < accountsArray.length; i++) {
+        if ($("#login-email:nth-child(2)").val() == accountsArray[i].email) {
+
+            if ($("#login-password:nth-child(3)").val() == accountsArray[i].password) {
+                //This path is for successful login
+                //Stringify accountsArray
+                localAccount = accountsArray[i];
+                updateLocalData(localAccount);
+
+                //NOTE: experiment with location.replace and windows.location
+                loadApp();
+            }
+
+            //If email does not have a matching password run error message
+            else {
+                if (i == (accountsArray.length - 1)) {
+                    alert.message = "This isn't the right password for the account.";
+
+                    document.body.appendChild(alert);
+                    return alert.present();
+                }
+            }
+
+        }
+
+        //If all accounts do not have a matching email run error message
+        else {
+            if (i == (accountsArray.length - 1)) {
+                alert.message = "We don't have your email in our records.";
+
+                document.body.appendChild(alert);
+                return alert.present();
+            }
+        }
+    }
+
+    $("#login-password:nth-child(2)").val();
+}
+
+//Asynchronous loading function
+async function displayLoader(reason) {
+    const loading = document.createElement('ion-loading');
+
+    loading.cssClass = 'my-custom-class';
+    loading.message = 'Please wait...';
+    loading.duration = 2000;
+
+    document.body.appendChild(loading);
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    if (reason == "login") {
+        login();
+    }
+
+    else if (reason == "register") {
+        register();
+    }
+
+    else if (reason == "new-entry") {
+        //Present Success Alert
+        const alert = document.createElement('ion-alert');
+        alert.cssClass = 'tribe-alert';
+        alert.header = 'Done!';
+        alert.message = "New journal entry added, yay!";
+        alert.buttons = ['OK'];
+
+        document.body.appendChild(alert);
+        return alert.present();
+    }
 }
 
 //Object Templates
@@ -178,7 +333,7 @@ function DateObject(dateObj) {
         return dayArray[dayIndex];
     };
     this.day = dateObj.getDate();
-    this.month = dateObj.getMonth();
+    this.month = dateObj.getMonth() + 1;
     this.year = dateObj.getFullYear();
     this.date = function () {
         //Convert int to str for concantenation
@@ -204,10 +359,11 @@ function UserAccount(id, email, password, firstName, lastName, child, journalEnt
 };
 
 //Child Object Template
-function Child(id, name, dob, weight, height) {
+function Child(id, name, dob, gender, weight, height) {
     this.id = id;
     this.name = name;
     this.dob = dob;
+    this.gender = gender;
     this.age = function () {
 
         //Find difference in years

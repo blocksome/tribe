@@ -1,0 +1,346 @@
+<!--Loadable for tribe-->
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tribe</title>
+
+    <!--CSS Styling-->
+    <!--Ionic-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+
+    <!--Local Styling-->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+    <!--App-->
+    <ion-app>
+
+        <!--Hamburger Menu-->
+        <ion-menu side="start" content-id="main-content" class="menu">
+            <ion-header id="menu-header" class="white-bg menu-header">
+                <ion-toolbar translucent>
+                    <ion-title id="hamburger-title"><img id="hamburger-logo" src="images/logo.png"></ion-title>
+                </ion-toolbar>
+            </ion-header>
+
+
+            <ion-content class="menu white-bg">
+                <ion-list>
+                    <ion-item>
+                        <ion-icon name="settings" slot="end"></ion-icon>
+                        <ion-label>Settings</ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-content>
+        </ion-menu>
+
+        <!--Pages and Main Content-->
+        <div class="ion-page menu" id="main-content">
+
+            <ion-tabs>
+<!--
+                <ion-router use-hash="false" root="/index.html">
+
+                    <ion-route-redirect from="/" to="login"></ion-route-redirect>
+                    <ion-route component="app-tabs"></ion-route>
+                    <ion-route url="/login" component="login-tab">
+                        <ion-route component="app-login" />
+                    </ion-route>
+                    <ion-route url="/register-page" component="register"></ion-route>
+                    <ion-route url="/home" component="home"></ion-route>
+
+                </ion-router>
+
+<login-tab></login-tab>
+-->
+
+                <!--Login Page-->
+                <ion-tab tab="login">
+                    <ion-nav></ion-nav>
+                    <ion-content class="ion-padding tab-content" id="login-page">
+
+                        <div id="login-content">
+                            <img src="images/logo-name.png">
+
+                            <ion-input class="login-input" id="login-email" placeholder="Email" type="email">
+                            </ion-input>
+                            <ion-input class="login-input" id="login-password" placeholder="Password" type="password">
+                            </ion-input>
+                            <ion-button id="login-btn" shape="round" size="large">LOGIN</ion-button>
+
+                            <span class="login-span" id="forgot-span">Forgot Password?</span>
+                            <ion-tab-button tab="register">
+                                <span class="login-span" id="register-span">New User?</span>
+                            </ion-tab-button>
+
+
+                        </div>
+
+                    </ion-content>
+                </ion-tab>
+
+                <!--Register Page-->
+                <ion-tab tab="register">
+                    <ion-nav></ion-nav>
+                    <ion-content class="ion-padding tab-content" id="register-page">
+
+                        <div id="login-content">
+                            <img src="images/logo-name.png">
+
+                            <ion-input class="register-input" id="register-email" placeholder="Email" type="email">
+                            </ion-input>
+                            <ion-input class="register-input" id="register-password" placeholder="Password"
+                                type="password"></ion-input>
+                            <ion-input class="register-input" id="register-email" placeholder="First Name"></ion-input>
+                            <ion-input class="register-input" id="register-email" placeholder="Last Name"></ion-input>
+
+                            <ion-button id="register-btn1" shape="round" size="large">NEXT</ion-button>
+
+                            <ion-tab-button tab="login">
+                                <span class="login-span" id="login-span">Existing User?</span>
+                            </ion-tab-button>
+
+
+                        </div>
+
+                    </ion-content>
+                </ion-tab>
+
+                <!--Home Page-->
+                <ion-tab tab="home">
+                    <!--Header-->
+                    <ion-header class="app-header">
+                        <ion-toolbar>
+                            <ion-buttons slot="start">
+                                <ion-menu-button>
+                                    <ion-icon name="menu" id="hamburger-icon"></ion-icon>
+                                </ion-menu-button>
+                            </ion-buttons>
+                            <ion-title>Home</ion-title>
+                        </ion-toolbar>
+                    </ion-header>
+                    <ion-content class="ion-padding tab-content">
+
+                    </ion-content>
+                </ion-tab>
+
+                <!--Food Page-->
+                <ion-tab tab="food">
+                    <!--Header-->
+                    <ion-header class="app-header">
+                        <ion-toolbar>
+                            <ion-buttons slot="start">
+                                <ion-menu-button></ion-menu-button>
+                            </ion-buttons>
+                            <ion-title>Food</ion-title>
+                        </ion-toolbar>
+                    </ion-header>
+                    <ion-content class="ion-padding tab-content">
+
+                    </ion-content>
+                </ion-tab>
+
+                <!--Alarm Page-->
+                <ion-tab tab="alarm">
+                    <!--Header-->
+                    <ion-header class="app-header">
+                        <ion-toolbar>
+                            <ion-buttons slot="start">
+                                <ion-menu-button></ion-menu-button>
+                            </ion-buttons>
+                            <ion-title>Alarm</ion-title>
+                        </ion-toolbar>
+                    </ion-header>
+                    <ion-content class="ion-padding tab-content">
+
+                    </ion-content>
+                </ion-tab>
+
+                <!--Profile-->
+                <ion-tab tab="profile">
+                    <!--Header-->
+                    <ion-header class="app-header">
+                        <ion-toolbar>
+                            <ion-buttons slot="start">
+                                <ion-menu-button></ion-menu-button>
+                            </ion-buttons>
+                            <ion-title>Profile</ion-title>
+                        </ion-toolbar>
+                    </ion-header>
+                    <ion-content class="ion-padding tab-content">
+                        <div id="profile-body">
+                            <!--Profile Avatar-->
+                            <!--joses put stuff abt baby journal here thanks, goodnight-->
+                            <div id="profile-avatar-div">
+                                <div id="profile-avatar-circle">
+                                    <ion-avatar id="profile-avatar">
+                                        <img
+                                            src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+                                    </ion-avatar>
+                                </div>
+
+                                <h2 id="profile-name"></h2>
+                                <h2 id="profile-age"></h2>
+                            </div>
+
+
+
+                        </div>
+                    </ion-content>
+
+                </ion-tab>
+
+                <!--Footer-->
+                <ion-tab-bar slot="bottom" id="app-footer">
+
+                    <ion-tab-button tab="home" class="tab-btn home-btn">
+                        <ion-icon name="home" class="tribe-orange-c tab-icon" id="home-icon"></ion-icon>
+                    </ion-tab-button>
+
+                    <ion-tab-button tab="food" class="tab-btn food-btn">
+                        <ion-icon name="restaurant-outline" class="tribe-orange-c tab-icon" id="food-icon"></ion-icon>
+                    </ion-tab-button>
+
+                    <ion-tab-button tab="alarm" class="tab-btn alarm-btn">
+                        <ion-icon name="alarm-outline" class="tribe-orange-c tab-icon" id="alarm-icon"></ion-icon>
+                    </ion-tab-button>
+
+                    <ion-tab-button tab="profile" class="tab-btn profile-btn">
+                        <ion-icon name="person-circle-outline" class="tribe-orange-c tab-icon" id="profile-icon">
+                        </ion-icon>
+                    </ion-tab-button>
+
+
+                </ion-tab-bar>
+
+            </ion-tabs>
+        </div>
+
+        <div id="add-journal-btn">
+            <ion-icon name="add-circle" class="tribe-orange-c tab-icon" id="add-journal-btn">
+            </ion-icon>
+        </div>
+
+    </ion-app>
+
+
+
+
+    <!--Javascript-->
+    <!--Ionic-->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+
+    <!--jQuery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+        crossorigin="anonymous"></script>
+
+    <!--Local-->
+    <script src="js/code.js"></script>
+
+    <!--Import Ionic Component Script-->
+    <script type="module">
+
+        import { menuController } from 'https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/index.esm.js';
+        window.menuController = menuController;
+
+        import { modalController } from 'https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/index.esm.js';
+        window.modalController = modalController;
+
+    </script>
+
+    <!--Routing-->
+    <script>
+        customElements.define('login-tab', class extends HTMLElement {
+            connectedCallback() {
+                this.innerHTML = `
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Page Header</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        Page Content
+      </ion-content>`;
+            }
+        });
+    </script>
+
+    <!--Hamburger Menu-->
+    <script>
+        async function openMenu() {
+            await menuController.open();
+        }
+
+    </script>
+
+    <!--Journal Entry Maker-->
+    <script>
+        customElements.define('modal-content', class ModalContent extends HTMLElement {
+            connectedCallback() {
+                this.innerHTML = `
+          <ion-header translucent class="white-bg">
+            <ion-toolbar>
+              <ion-title>New Journal Entry</ion-title>
+              <ion-buttons slot="end">
+                <ion-icon name="close-outline" id="journal-close-btn" onclick="dismissModal()"></ion-icon>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+
+          <ion-content class="white-bg">
+            <ion-list>
+            <ion-item>
+                <ion-label position="floating">Name of Entry</ion-label>
+                <ion-input clear-input required="true" id="journal-name"></ion-input>
+            </ion-item>
+ 
+            <ion-item>
+                <ion-label position="floating">Details</ion-label>
+                <ion-textarea rows="20" id="journal-details"></ion-textarea>
+            </ion-item>
+
+            <ion-item>
+                <ion-label position="fixed">Image</ion-label>
+                <ion-input clear-input type="file" accept="image/*" id="journal-image"></ion-input>
+            </ion-item>
+
+            <ion-button class="ion-padding" id="journal-submit" expand="block" slot="icon-only">Save Entry</ion-button>
+            </ion-list>
+          </ion-content>
+        `;
+            }
+        });
+
+        let currentModal = null;
+        const button = document.getElementById('add-journal-btn');
+        button.addEventListener('click', createModal);
+
+        async function createModal() {
+            const modal = await modalController.create({
+                component: 'modal-content',
+                cssClass: 'journal-modal-css'
+            });
+
+            await modal.present();
+            currentModal = modal;
+        }
+
+        function dismissModal() {
+            if (currentModal) {
+                currentModal.dismiss().then(() => { currentModal = null; });
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

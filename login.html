@@ -1,0 +1,60 @@
+<!--Pages and Main Content-->
+<div class="ion-page menu" id="main-content">
+
+    <ion-tabs>
+
+        <!--Login Page-->
+        <ion-tab tab="login">
+            <ion-nav></ion-nav>
+            <ion-content class="ion-padding tab-content" id="login-page">
+
+                <div id="login-content">
+                    <img src="images/logo-name.png">
+
+                    <ion-input class="login-input" id="login-email" placeholder="Email" type="email">
+                    </ion-input>
+                    <ion-input class="login-input" id="login-password" placeholder="Password" type="password">
+                    </ion-input>
+                    <ion-button id="login-btn" shape="round" size="large">LOGIN</ion-button>
+
+                    <span class="login-span" id="forgot-span">Forgot Password?</span>
+                    <ion-tab-button tab="register">
+                        <span class="login-span" id="register-span">New User?</span>
+                    </ion-tab-button>
+
+
+                </div>
+
+            </ion-content>
+        </ion-tab>
+
+        <!--Register Page-->
+        <ion-tab tab="register">
+            <ion-nav></ion-nav>
+            <ion-content class="ion-padding tab-content" id="register-page">
+
+                <div id="login-content">
+                    <img src="images/logo-name.png">
+
+                    <ion-input class="register-input" id="register-email" placeholder="Email" type="email">
+                    </ion-input>
+                    <ion-input class="register-input" id="register-password" placeholder="Password" type="password">
+                    </ion-input>
+                    <ion-input class="register-input" id="register-email" placeholder="First Name"></ion-input>
+                    <ion-input class="register-input" id="register-email" placeholder="Last Name"></ion-input>
+
+                    <ion-button id="register-btn1" shape="round" size="large">NEXT</ion-button>
+
+                    <ion-tab-button tab="login">
+                        <span class="login-span" id="login-span">Existing User?</span>
+                    </ion-tab-button>
+
+
+                </div>
+
+            </ion-content>
+        </ion-tab>
+
+        </ion-tab-bar>
+    </ion-tabs>
+</div>
