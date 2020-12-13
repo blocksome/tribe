@@ -4,60 +4,56 @@ tribe, the premier infant/toddler care app. tribe manages your tasks and tracks 
  
 ## Design Process
  
-Provide us insights about your design process, focusing on who this website is for, what it is that they want to achieve and how your project is the best way to help them achieve these things.
+tribe was built with its creator's, Joses', niece in mind. Joses' niece was a young child growing up in a modern world where technology was advanced enough to keep track of her activities on social media. However, one thing was missing.
 
-In particular, as part of this section we recommend that you provide a list of User Stories, with the following general structure:
-- As a user type, I want to perform an action, so that I can achieve a goal.
-
-This section is also where you would share links to any wireframes, mockups, diagrams etc. that you created as part of the design process. 
-These files should themselves either be included as a pdf file in the project itself (in an separate directory)
-Include the Adobe XD wireframe as a folder. You can include the XD share url. 
+There was no app on the market that really catered to digitally scrapbooking young children's memories. So Joses made one. Taking from his experiences of being a potential user and surveying his relatives who had kids, he came to understand what kind of accessibility he would need for the app.
 
 ## Features
-
-In this section, you should go over the different parts of your project, and describe each in a sentence or so.
  
 ### Existing Features
-- Feature 1 - allows users X to achieve Y, by having them fill out Z
-- ...
+- Account System - tribe has a user account database system that allows for your data to be carried through the cloud, so you can access your memories on any smart device that carries tribe.
 
-In addition, you may also use this section to discuss plans for additional features to be implemented in the future:
+- Digital Scrapbook - tribe's main pride and joy. The Digital Scrapbook allows users to record memories of their precious one for safekeeping. An ageless piece of time, kept forever in your account. 
 
-### Features Left to Implement
-- Another feature idea
+You can edit Scrapbook Entries and delete individual ones. With this level of control, it'll really feel like a real scrapbook.
+
+### Future Features
+- Images for Digital Scrapbook - We want to take your keepsakes a step further. By introducing image sharing for Scrapbook Entries, you'll be able to not only read out when happened that day, but see, too! 
+
+The image button for scrapbook is not working at the moment. DO NOT CREATE ENTRIES WITH IMAGES.
 
 ## Technologies Used
 
-In this section, you should mention all of the languages, frameworks, libraries, and any other tools that you have used to construct this project. For each, provide its name, a link to its official site and a short sentence of why it was used.
-
 - [JQuery](https://jquery.com)
-    - The project uses **JQuery** to simplify DOM manipulation.
+    - tribe uses **JQuery** to simplify DOM manipulation.
+
+- [Ionic](https://ionicframework.com)
+    - tribe uses **Ionic** for mobile-centric development. 
 
 
 ## Testing
 
-For any scenarios that have not been automated, test the user stories manually and provide as much detail as is relevant. A particularly useful form for describing your testing process is via scenarios, such as:
+1. Logging In/Registering
+    1. You can login with the following account info:
+        email: emilykang@gmail.com
+        password: password
 
-1. Contact form:
-    1. Go to the "Contact Us" page
-    2. Try to submit the empty form and verify that an error message about the required fields appears
-    3. Try to submit the form with an invalid email address and verify that a relevant error message appears
-    4. Try to submit the form with all inputs valid and verify that a success message appears.
+    2. Alternatively, you could create your own account by filling in the relevant fields in the register form.
 
-In addition, you should mention in this section how your project looks and works on different browsers and screen sizes.
+2. Adding an Entry
+    1. Tap the plus icon at the centre of the footer bar.
+    2. Fill in the relevant fields in the entry form.
+    3. Save your entry and tap the profile icon on the right of the footer bar. Your new entry should appear now!
 
-You should also mention in this section any interesting bugs or problems you discovered during your testing, even if you haven't addressed them yet.
-
-If this section grows too long, you may want to split it off into a separate file and link to it from here.
 
 ## Credits
 
 ### Content
-- The text for section Y was copied from the [Wikipedia article Z](https://en.wikipedia.org/wiki/Z)
+- The avatar graphic was provided by Ionic [Ionic Framework Avatar](https://ionicframework.com/docs/api/avatar)
 
 ### Media
-- The photos used in this site were obtained from ...
+- The tribe logo and colour scheme were created by Joses Kang.
 
 ### Acknowledgements
 
-- I received inspiration for this project from X
+- Thank you to Jolene Kang, Joses' sister who inspired this project with her endless pursuit to document her daughter's everyday life.
