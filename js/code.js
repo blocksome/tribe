@@ -260,7 +260,7 @@ $(document).ready(function () {
         else {
 
             //Updating local data
-            localAccount.child.childName = childName;
+            localAccount.child.name = childName;
 
             var submitDate = new Date(`${childDOB.slice(0, 4)}, ${childDOB.slice(5, 7)}, ${childDOB.slice(8, 10)}`);
             localAccount.child.dob = new DateObject(submitDate);
@@ -286,6 +286,81 @@ $(document).ready(function () {
                 }
             }
         }
+    });
+
+    //Delete Journal
+    $("body").on("click", "#delete-journal-btn", function () {
+        const alert = document.createElement('ion-alert');
+        alert.cssClass = 'tribe-alert';
+        alert.header = 'WARNING';
+        alert.message = "You are about to delete all of your scrapbook data. This action is irreversible, are you sure?";
+        alert.buttons = [
+            {
+                text: 'Cancel',
+                role: 'cancel',
+                cssClass: 'secondary'
+            },
+
+            {
+                text: 'Delete Data',
+                handler: () => {
+                    displayLoader("delete-journal");
+                }
+            }
+        ];
+
+        document.body.appendChild(alert);
+        return alert.present();
+    });
+
+    //Delete Child
+    $("body").on("click", "#delete-child-btn", function () {
+        const alert = document.createElement('ion-alert');
+        alert.cssClass = 'tribe-alert';
+        alert.header = 'WARNING';
+        alert.message = "You are about to delete all of your child data. This action is irreversible, are you sure?";
+        alert.buttons = [
+            {
+                text: 'Cancel',
+                role: 'cancel',
+                cssClass: 'secondary'
+            },
+
+            {
+                text: 'Delete Data',
+                handler: () => {
+                    displayLoader("delete-child");
+                }
+            }
+        ];
+
+        document.body.appendChild(alert);
+        return alert.present();
+    });
+
+    //Delete Account
+    $("body").on("click", "#delete-account-btn", function () {
+        const alert = document.createElement('ion-alert');
+        alert.cssClass = 'tribe-alert';
+        alert.header = 'WARNING';
+        alert.message = "You are about to delete all your account. All of your scrapbook and child data will be lost. This action is irreversible, are you sure?";
+        alert.buttons = [
+            {
+                text: 'Cancel',
+                role: 'cancel',
+                cssClass: 'secondary'
+            },
+
+            {
+                text: 'Delete Data',
+                handler: () => {
+                    displayLoader("delete-account");
+                }
+            }
+        ];
+
+        document.body.appendChild(alert);
+        return alert.present();
     });
 
     //Journal Submit
@@ -339,7 +414,6 @@ $(document).ready(function () {
 
     //Journal Edit
     $("body").on("click", "#journal-edit", function () {
-
         //Storing input values as variables
         var journalName = $("#journal-name").val();
         var journalDetails = $("#journal-details").val();
@@ -362,7 +436,6 @@ $(document).ready(function () {
 
             //Updating local user
             var updatedEntry = new JournalEntry(journalName, currentDate, journalDetails, journalImage);
-
             localAccount.journalEntries[currentEntry] = updatedEntry;
             updateLocalData(localAccount);
 
@@ -376,7 +449,7 @@ $(document).ready(function () {
 
                     console.log(accountsArray);
 
-                    displayLoader("update-entry");
+                    displayLoader("new-entry");
 
                     //Sending data to database
                     updateData(accountsArray);
@@ -385,6 +458,31 @@ $(document).ready(function () {
 
 
         }
+    });
+
+    //Delete Journal Entry
+    $("body").on("click", "#journal-delete", function () {
+        const alert = document.createElement('ion-alert');
+        alert.cssClass = 'tribe-alert';
+        alert.header = 'Hey!';
+        alert.message = "Are you sure that you want to delete this entry?";
+        alert.buttons = [
+            {
+                text: 'Cancel',
+                role: 'cancel',
+                cssClass: 'secondary'
+            },
+
+            {
+                text: 'Delete',
+                handler: () => {
+                    displayLoader("delete-entry");
+                }
+            }
+        ];
+
+        document.body.appendChild(alert);
+        return alert.present();
     });
 
 
@@ -540,6 +638,11 @@ function login() {
                 localAccount = accountsArray[i];
                 updateLocalData(localAccount);
 
+                dataGet = JSON.parse(localStorage.getItem("storedLogin"));
+
+                localChild = new Child(dataGet.child.id, dataGet.child.name, dataGet.child.dob, dataGet.child.gender, dataGet.child.weight, dataGet.child.height);
+                localAccount = new UserAccount(dataGet.id, dataGet.email, dataGet.password, dataGet.firstName, dataGet.lastName, localChild, dataGet.journalEntries);
+
                 loadApp();
             }
 
@@ -661,6 +764,90 @@ async function displayLoader(reason) {
         return alert.present();
     }
 
+    else if (reason == "delete-journal") {
+        localAccount.journalEntries = [];
+        updateLocalData(localAccount);
+
+        //Updating database
+        //Look for user in array
+        for (var i = 0; i < accountsArray.length; i++) {
+            if (accountsArray[i].id == localAccount.id) {
+                accountsArray.splice(i, 1, localAccount);
+
+                console.log(accountsArray);
+
+                //Sending data to database
+                updateData(accountsArray);
+            }
+        }
+
+        //Present Success Alert
+        const alert = document.createElement('ion-alert');
+        alert.cssClass = 'tribe-alert';
+        alert.header = 'Complete';
+        alert.message = "All of your scrapbook data has been deleted.";
+        alert.buttons = [{
+            text: 'OK',
+            handler: () => {
+                displayLoader("load-profile");
+            }
+        }];
+
+        document.body.appendChild(alert);
+        return alert.present();
+    }
+
+    else if (reason == "delete-child") {
+        var templateChild = new Child(0, "Child Name", currentDate, "Gender", "Weight (kg)", "Height (cm)");
+        localAccount.child = templateChild;
+        updateLocalData(localAccount);
+
+        //Updating database
+        //Look for user in array
+        for (var i = 0; i < accountsArray.length; i++) {
+            if (accountsArray[i].id == localAccount.id) {
+                accountsArray.splice(i, 1, localAccount);
+
+                console.log(accountsArray);
+
+                //Sending data to database
+                updateData(accountsArray);
+            }
+        }
+
+        //Present Success Alert
+        const alert = document.createElement('ion-alert');
+        alert.cssClass = 'tribe-alert';
+        alert.header = 'Complete';
+        alert.message = "All of your child data has been deleted.";
+        alert.buttons = [{
+            text: 'OK',
+            handler: () => {
+                displayLoader("load-profile");
+            }
+        }];
+
+        document.body.appendChild(alert);
+        return alert.present();
+    }
+
+    else if (reason == "delete-account") {
+        //Updating database
+        //Look for user in array
+        for (var i = 0; i < accountsArray.length; i++) {
+            if (accountsArray[i].id == localAccount.id) {
+                accountsArray.splice(i, 1);
+
+                console.log(accountsArray);
+
+                //Sending data to database
+                updateData(accountsArray);
+
+                displayLoader("logout");
+            }
+        }
+    }
+
     else if (reason == "new-entry") {
 
         //Present Success Alert
@@ -697,6 +884,32 @@ async function displayLoader(reason) {
 
         document.body.appendChild(alert);
         return alert.present();
+    }
+
+    else if (reason == "delete-entry") {
+        //Updating local user
+        localAccount.journalEntries.splice(currentEntry, 1);
+
+        updateLocalData(localAccount);
+
+        console.log(localAccount.journalEntries);
+
+        //Updating local user in the account data
+        //Look for user in array
+        for (var i = 0; i < accountsArray.length; i++) {
+            if (accountsArray[i].id == localAccount.id) {
+                accountsArray.splice(i, 1, localAccount);
+
+                console.log(accountsArray);
+
+                displayLoader("load-profile");
+
+                //Sending data to database
+                updateData(accountsArray);
+            }
+        }
+
+        dismissEditJournalModal();
     }
 
     else if (reason == "load-profile") {

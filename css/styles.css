@@ -219,6 +219,10 @@
   text-align: right;
 }
 
+#settings-warning {
+  color: #FF8127;
+}
+
 #edit-child-dob {
   margin-left: auto;
   margin-right: 7vw;
@@ -313,6 +317,13 @@
 .journal-modal .modal-wrapper {
   height: 100%;
   top: 20%;
+  position: absolute;
+  display: block;
+}
+
+.edit-journal-modal .modal-wrapper {
+  height: 100%;
+  top: 18%;
   position: absolute;
   display: block;
 }

@@ -87,12 +87,12 @@
                             <ion-label class="settings-label settings-label-display">${localAccount.firstName}</ion-label>
                         </ion-item>
             
-                        <ion-item>
+                        <ion-item class="settings-item">
                             <ion-label class="settings-label">Last Name</ion-label>
                             <ion-label class="settings-label settings-label-display">${localAccount.lastName}</ion-label>
                         </ion-item>
 
-                        <ion-item>
+                        <ion-item class="settings-item">
                             <ion-label class="settings-label">Email</ion-label>
                             <ion-label class="settings-label settings-label-display">${localAccount.email}</ion-label>
                         </ion-item>
@@ -119,27 +119,46 @@
                             <ion-label class="settings-label settings-label-display">${localAccount.child.name}</ion-label>
                         </ion-item>
 
-                        <ion-item>
+                        <ion-item class="settings-item">
                             <ion-label class="settings-label">Date of Birth</ion-label>
                             <ion-label class="settings-label settings-label-display">${localAccount.child.dob.day} ${monthArrayShort[localAccount.child.dob.month - 1]} ${localAccount.child.dob.year}</ion-label>
                         </ion-item>
 
-                        <ion-item>
+                        <ion-item class="settings-item">
                             <ion-label class="settings-label">Gender</ion-label>
                             <ion-label class="settings-label settings-label-display">${localAccount.child.gender}</ion-label>
                         </ion-item>
 
-                        <ion-item>
+                        <ion-item class="settings-item">
                             <ion-label class="settings-label">Weight (kg)</ion-label>
                             <ion-label class="settings-label settings-label-display">${localAccount.child.weight}</ion-label>
                         </ion-item>
 
-                        <ion-item>
+                        <ion-item class="settings-item">
                             <ion-label class="settings-label">Height (cm)</ion-label>
                             <ion-label class="settings-label settings-label-display">${localAccount.child.height}</ion-label>
                         </ion-item>
 
                         <ion-button class="ion-padding" id="edit-child-btn" expand="block" slot="icon-only">Edit Details</ion-button>
+                    </ion-list>
+                </ion-slide>
+
+                <!--Reset Slide-->
+                <ion-slide>
+
+                    <ion-toolbar>
+                        <ion-title>Data</ion-title>
+                    </ion-toolbar>
+
+                    <ion-list>
+                        <h2 id="settings-warning">WARNING</h2>
+                        <p class="ion-padding">
+                            Deleting data is an irreversible action. All deleted data will be lost forever. Forever is a long time. A very long time.
+                        </p>
+
+                        <ion-button class="ion-padding delete-data-btn" color="danger" id="delete-journal-btn" expand="block" slot="icon-only">Delete Journal Data</ion-button>
+                        <ion-button class="ion-padding delete-data-btn" color="danger" id="delete-child-btn" expand="block" slot="icon-only">Delete Child Data</ion-button>
+                        <ion-button class="ion-padding delete-data-btn" color="danger" id="delete-account-btn" expand="block" slot="icon-only">Delete Account</ion-button>
                     </ion-list>
                 </ion-slide>
 
@@ -417,6 +436,7 @@
                 <ion-input clear-input type="file" accept="image/*" id="journal-image" value="${localAccount.journalEntries[currentEntry].entryMedia}"></ion-input>
             </ion-item>
 
+            <ion-button class="ion-padding" color="danger" id="journal-delete" expand="block" slot="icon-only">Delete Entry</ion-button>
             <ion-button class="ion-padding" id="journal-edit" expand="block" slot="icon-only">Save Entry</ion-button>
             </ion-list>
           </ion-content>
@@ -441,7 +461,7 @@
         async function createEditJournalModal() {
             const modal = await modalController.create({
                 component: 'edit-journal-modal-content',
-                cssClass: 'journal-modal'
+                cssClass: 'edit-journal-modal'
             });
 
             await modal.present();
