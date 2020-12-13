@@ -46,6 +46,16 @@ The image button for scrapbook is not working at the moment. DO NOT CREATE ENTRI
     2. Fill in the relevant fields in the entry form.
     3. Save your entry and tap the profile icon on the right of the footer bar. Your new entry should appear now!
 
+3. Editing an Entry
+    1. Tap any entry in the profile page.
+    2. Edit the entry's relevant fields as see fit. You may delete the entry instead, if you wish to do so.
+    3. Save your entry, it should now be updated!
+
+4. Deleting Data
+    1. Navigate to the Settings menu via the Hamburger Menu icon in the top left hand corner.
+    2. Swipe to slide 3 and tap any delete data button.
+    3. After confirming, the relevant data should be deleted. If you tapped the delete account button, the account will be deleted and the app will automatically log you out.
+
 
 ## Credits
 
