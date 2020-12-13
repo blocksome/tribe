@@ -1,5 +1,6 @@
 # tribe
 
+
 tribe, the premier infant/toddler care app. tribe manages your tasks and tracks your child's growth with an easy-to-use user interface, making it a leader in the childcare industry. With over 4 great features and more to come, tribe is the equivalent of having more guardians for your child. After all, it takes a village to raise one.
  
 ## Design Process
@@ -57,3 +58,5 @@ The image button for scrapbook is not working at the moment. DO NOT CREATE ENTRI
 ### Acknowledgements
 
 - Thank you to Jolene Kang, Joses' sister who inspired this project with her endless pursuit to document her daughter's everyday life.
+
+[Follow tribe's development here](https://github.com/blocksome/tribe)
