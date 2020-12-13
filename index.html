@@ -45,6 +45,8 @@
         import { modalController } from 'https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/index.esm.js';
         window.modalController = modalController;
 
+        import { pickerController } from 'https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/index.esm.js';
+        window.pickerController = pickerController;
     </script>
 
     <!--Hamburger Menu-->
@@ -174,11 +176,11 @@
 
     </script>
 
-<!--Account Details Editor-->
-<script>
-    customElements.define('edit-account-modal-content', class ModalContent extends HTMLElement {
-        connectedCallback() {
-            this.innerHTML = `
+    <!--Account Details Editor-->
+    <script>
+        customElements.define('edit-account-modal-content', class ModalContent extends HTMLElement {
+            connectedCallback() {
+                this.innerHTML = `
       <ion-header translucent class="white-bg">
         <ion-toolbar>
           <ion-title>Edit Account Details</ion-title>
@@ -214,41 +216,41 @@
         </ion-list>
       </ion-content>
     `;
-        }
-    });
-
-    let currentEditAccountModal = null;
-    $("body").on("click", "#edit-account-btn", function () {
-        createEditAccountModal();
-    });
-
-    $("body").on("click", "#close-edit-account-btn", function () {
-        dismissEditAccountModal();
-    });
-
-    async function createEditAccountModal() {
-        const modal = await modalController.create({
-            component: 'edit-account-modal-content',
-            cssClass: 'edit-account-modal'
+            }
         });
 
-        await modal.present();
-        currentEditAccountModal = modal;
-    }
+        let currentEditAccountModal = null;
+        $("body").on("click", "#edit-account-btn", function () {
+            createEditAccountModal();
+        });
 
-    function dismissEditAccountModal() {
-        if (currentEditAccountModal) {
-            currentEditAccountModal.dismiss().then(() => { currentEditAccountModal = null; });
+        $("body").on("click", "#close-edit-account-btn", function () {
+            dismissEditAccountModal();
+        });
+
+        async function createEditAccountModal() {
+            const modal = await modalController.create({
+                component: 'edit-account-modal-content',
+                cssClass: 'edit-account-modal'
+            });
+
+            await modal.present();
+            currentEditAccountModal = modal;
         }
-    }
 
-</script>
+        function dismissEditAccountModal() {
+            if (currentEditAccountModal) {
+                currentEditAccountModal.dismiss().then(() => { currentEditAccountModal = null; });
+            }
+        }
 
-<!--Child Details Editor-->
-<script>
-    customElements.define('edit-child-modal-content', class ModalContent extends HTMLElement {
-        connectedCallback() {
-            this.innerHTML = `
+    </script>
+
+    <!--Child Details Editor-->
+    <script>
+        customElements.define('edit-child-modal-content', class ModalContent extends HTMLElement {
+            connectedCallback() {
+                this.innerHTML = `
       <ion-header translucent class="white-bg">
         <ion-toolbar>
           <ion-title>Edit Child Details</ion-title>
@@ -289,35 +291,35 @@
         </ion-list>
       </ion-content>
     `;
-        }
-    });
-
-    let currentEditChildModal = null;
-    $("body").on("click", "#edit-child-btn", function () {
-        createEditChildModal();
-    });
-
-    $("body").on("click", "#close-edit-child-btn", function () {
-        dismissEditChildModal();
-    });
-
-    async function createEditChildModal() {
-        const modal = await modalController.create({
-            component: 'edit-child-modal-content',
-            cssClass: 'edit-child-modal'
+            }
         });
 
-        await modal.present();
-        currentEditChildModal = modal;
-    }
+        let currentEditChildModal = null;
+        $("body").on("click", "#edit-child-btn", function () {
+            createEditChildModal();
+        });
 
-    function dismissEditChildModal() {
-        if (currentEditChildModal) {
-            currentEditChildModal.dismiss().then(() => { currentEditChildModal = null; });
+        $("body").on("click", "#close-edit-child-btn", function () {
+            dismissEditChildModal();
+        });
+
+        async function createEditChildModal() {
+            const modal = await modalController.create({
+                component: 'edit-child-modal-content',
+                cssClass: 'edit-child-modal'
+            });
+
+            await modal.present();
+            currentEditChildModal = modal;
         }
-    }
 
-</script>
+        function dismissEditChildModal() {
+            if (currentEditChildModal) {
+                currentEditChildModal.dismiss().then(() => { currentEditChildModal = null; });
+            }
+        }
+
+    </script>
 
     <!--Journal Entry Maker-->
     <script>
@@ -326,7 +328,7 @@
                 this.innerHTML = `
           <ion-header translucent class="white-bg">
             <ion-toolbar>
-              <ion-title>New Journal Entry</ion-title>
+              <ion-title>New Scrapbook Entry</ion-title>
               <ion-buttons slot="end">
                 <ion-icon name="close-outline" id="close-journal-btn"></ion-icon>
               </ion-buttons>
@@ -379,6 +381,76 @@
         function dismissJournalModal() {
             if (currentJournalModal) {
                 currentJournalModal.dismiss().then(() => { currentJournalModal = null; });
+            }
+        }
+
+    </script>
+
+    <!--Journal Entry Editor-->
+    <script>
+        customElements.define('edit-journal-modal-content', class ModalContent extends HTMLElement {
+            connectedCallback() {
+                this.innerHTML = `
+          <ion-header translucent class="white-bg">
+            <ion-toolbar>
+              <ion-title>Edit Scrapbook Entry</ion-title>
+              <ion-buttons slot="end">
+                <ion-icon name="close-outline" id="close-edit-journal-btn"></ion-icon>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+
+          <ion-content class="white-bg">
+            <ion-list>
+            <ion-item>
+                <ion-label position="fixed">Name of Entry</ion-label>
+                <ion-input clear-input required="true" id="journal-name" value="${localAccount.journalEntries[currentEntry].entryName}"></ion-input>
+            </ion-item>
+ 
+            <ion-item>
+                <ion-label position="fixed">Details</ion-label>
+                <ion-textarea rows="20" id="journal-details" value="${localAccount.journalEntries[currentEntry].entryText}"></ion-textarea>
+            </ion-item>
+
+            <ion-item>
+                <ion-label position="fixed">Image</ion-label>
+                <ion-input clear-input type="file" accept="image/*" id="journal-image" value="${localAccount.journalEntries[currentEntry].entryMedia}"></ion-input>
+            </ion-item>
+
+            <ion-button class="ion-padding" id="journal-edit" expand="block" slot="icon-only">Save Entry</ion-button>
+            </ion-list>
+          </ion-content>
+        `;
+            }
+        });
+
+        let currentEditJournalModal = null;
+        $("body").on("click", ".profile-item", function () {
+            currentEntry = $(this).attr("id");
+            createEditJournalModal();
+
+            $("#journal-name").val(localAccount.journalEntries[currentEntry].entryName);
+            $("#journal-details").val(localAccount.journalEntries[currentEntry].entryText);
+            $("#journal-image").val(localAccount.journalEntries[currentEntry].entryMedia);
+        });
+
+        $("body").on("click", "#close-edit-journal-btn", function () {
+            dismissEditJournalModal();
+        });
+
+        async function createEditJournalModal() {
+            const modal = await modalController.create({
+                component: 'edit-journal-modal-content',
+                cssClass: 'journal-modal'
+            });
+
+            await modal.present();
+            currentEditJournalModal = modal;
+        }
+
+        function dismissEditJournalModal() {
+            if (currentEditJournalModal) {
+                currentEditJournalModal.dismiss().then(() => { currentEditJournalModal = null; });
             }
         }
 

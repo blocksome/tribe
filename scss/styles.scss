@@ -285,6 +285,10 @@ $font-size: (
     /*font-size: map-get($font-size, tab-icon);*/   
 }
 
+.wip-card{
+    background-color: white;
+}
+
 //Journal Styling
 #add-journal-btn, #add-journal-btn ion-icon{
     position: fixed;
@@ -338,13 +342,17 @@ $font-size: (
     display: block;  
  }
 
- #close-settings-btn, #close-journal-btn, #close-edit-account-btn, #close-edit-child-btn{
+ #close-settings-btn, #close-journal-btn, #close-edit-account-btn, #close-edit-child-btn, #close-edit-journal-btn{
     position: relative;
     font-size: 30px;
     right: 2vw;
 }
 
 //Profile Styling
+
+#profile-name, #profile-age, #journal-header{
+    color: $tribe-orange;
+}
 
 #profile-content{
     max-height: 100vh;
@@ -354,7 +362,7 @@ $font-size: (
 }
 
 #profile-body{
-    top: 40vh;
+    top: 50vh;
     left: 0;
     width: 100vw;
     min-height: 52vh;
@@ -377,7 +385,7 @@ $font-size: (
 }
 
 #profile-buffer{
-    min-height: 40vh;
+    min-height: 55vh;
 }
 
 #profile-avatar-div{
@@ -393,7 +401,7 @@ $font-size: (
 
     width: 100vw;
 
-    padding-top: 5vh;
+    padding-top: 10vh;
     padding-bottom: 10vh;
 
     background-color: $tribe-tan;
@@ -422,7 +430,7 @@ $font-size: (
     max-height: 35vw;
 }
 
-.profile-item{
+.profile-item, .profile-item-empty{
     min-height: 15vh;
 }
 

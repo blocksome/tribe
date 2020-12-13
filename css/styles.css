@@ -261,6 +261,10 @@
   /*font-size: map-get($font-size, tab-icon);*/
 }
 
+.wip-card {
+  background-color: white;
+}
+
 #add-journal-btn, #add-journal-btn ion-icon {
   position: fixed;
   -ms-flex-item-align: center;
@@ -313,10 +317,14 @@
   display: block;
 }
 
-#close-settings-btn, #close-journal-btn, #close-edit-account-btn, #close-edit-child-btn {
+#close-settings-btn, #close-journal-btn, #close-edit-account-btn, #close-edit-child-btn, #close-edit-journal-btn {
   position: relative;
   font-size: 30px;
   right: 2vw;
+}
+
+#profile-name, #profile-age, #journal-header {
+  color: #FF8127;
 }
 
 #profile-content {
@@ -326,7 +334,7 @@
 }
 
 #profile-body {
-  top: 40vh;
+  top: 50vh;
   left: 0;
   width: 100vw;
   min-height: 52vh;
@@ -351,7 +359,7 @@
 }
 
 #profile-buffer {
-  min-height: 40vh;
+  min-height: 55vh;
 }
 
 #profile-avatar-div {
@@ -372,7 +380,7 @@
       -ms-flex-direction: column;
           flex-direction: column;
   width: 100vw;
-  padding-top: 5vh;
+  padding-top: 10vh;
   padding-bottom: 10vh;
   background-color: #FFF7DD;
 }
@@ -402,7 +410,7 @@
   max-height: 35vw;
 }
 
-.profile-item {
+.profile-item, .profile-item-empty {
   min-height: 15vh;
 }
 
