@@ -18,6 +18,9 @@ var entryArray = [];
 //Current Date
 var currentDate = new DateObject(new Date());
 
+//Month Arrays
+var monthArrayShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", 'Dec'];
+
 //Booleans
 var isProfileLoaded = false;
 
@@ -124,7 +127,7 @@ $(document).ready(function () {
             return alert.present();
         }
 
-        if (accountPassword == "") {
+        else if (accountPassword == "") {
             alert.message = "You can't leave your password empty.";
 
             document.body.appendChild(alert);
@@ -151,6 +154,89 @@ $(document).ready(function () {
                     console.log(accountsArray);
 
                     displayLoader("edit-account");
+
+                    //Sending data to database
+                    updateData(accountsArray);
+                }
+            }
+        }
+    });
+
+    //Edit Child Details
+    $("body").on("click", "#edit-child-submit", function () {
+
+        const alert = document.createElement('ion-alert');
+        alert.cssClass = 'tribe-alert';
+        alert.header = 'Hey!';
+        alert.buttons = ['OK'];
+
+        //Storing input values as variables
+        var childName = $("#edit-child-name:nth-child(2)").val();
+        var childDOB = $("#edit-child-dob:nth-child(2)").val();
+        var childGender = $("#edit-child-gender:nth-child(2)").val();
+        var childWeight = $("#edit-child-weight:nth-child(2)").val();
+        var childHeight = $("#edit-child-height:nth-child(2)").val();
+
+        //Verify if entry name is blank  
+        if (childName == "") {
+            alert.message = "You can't leave your child's name empty.";
+
+            document.body.appendChild(alert);
+            return alert.present();
+        }
+
+        else if (childDOB == "") {
+            alert.message = "You can't leave your child's date of birth empty.";
+
+            document.body.appendChild(alert);
+            return alert.present();
+        }
+
+        else if (childGender == "") {
+            alert.message = "You can't leave your child's gender empty.";
+
+            document.body.appendChild(alert);
+            return alert.present();
+        }
+
+        else if (childWeight == "") {
+            alert.message = "You can't leave your child's weight empty.";
+
+            document.body.appendChild(alert);
+            return alert.present();
+        }
+
+        else if (childHeight == "") {
+            alert.message = "You can't leave your child's height empty.";
+
+            document.body.appendChild(alert);
+            return alert.present();
+        }
+
+        //Save Changes
+        else {
+
+            //Updating local data
+            localAccount.child.childName = childName;
+
+            var submitDate = new Date(`${childDOB.slice(0, 4)}, ${childDOB.slice(5, 7)}, ${childDOB.slice(8, 10)}`);
+            localAccount.child.dob = new DateObject(submitDate);
+            
+            localAccount.child.gender = childGender;
+            localAccount.child.weight = childWeight;
+            localAccount.child.height = childHeight;
+
+            updateLocalData(localAccount);
+
+            //Updating database
+            //Look for user in array
+            for (var i = 0; i < accountsArray.length; i++) {
+                if (accountsArray[i].id == localAccount.id) {
+                    accountsArray.splice(i, 1, localAccount);
+
+                    console.log(accountsArray);
+
+                    displayLoader("edit-child");
 
                     //Sending data to database
                     updateData(accountsArray);
@@ -265,9 +351,11 @@ function updateLocalData(updatedAccount) {
 function getLocalData() {
     dataGet = JSON.parse(localStorage.getItem("storedLogin"));
     if (dataGet) {
-        localChild = new Child(dataGet.child.id, dataGet.child.name, dataGet.child.dob, dataGet.child.dob, dataGet.child.weight, dataGet.child.height);
+        
+        localChild = new Child(dataGet.child.id, dataGet.child.name, dataGet.child.dob, dataGet.child.gender, dataGet.child.weight, dataGet.child.height);
         localAccount = new UserAccount(dataGet.id, dataGet.email, dataGet.password, dataGet.firstName, dataGet.lastName, localChild, dataGet.journalEntries);
-
+        
+        console.log(localChild);
         loadApp();
     }
 
@@ -444,6 +532,7 @@ async function displayLoader(reason) {
         alert.buttons = [{
             text: 'OK',
             handler: () => {
+                displayLoader("load-profile");
                 dismissSettingsModal();
                 dismissEditChildModal();
             }
@@ -517,28 +606,36 @@ async function displayLoader(reason) {
 //Date Obvarject Template
 function DateObject(dateObj) {
     this.dateObj = dateObj;
+
+    /*
     this.dayOfTheWeek = function () {
         var dayArray = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         var dayIndex = this.dateObj.getDay();
         return dayArray[dayIndex];
     };
+    */
+
     this.day = dateObj.getDate();
     this.month = dateObj.getMonth() + 1;
 
-    var monthArrayShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", 'Dec'];
-    var monthArrayFull = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", 'December'];
-    var monthIndex = this.month - 1;
-
-
-
+    /*
     this.month2 = function () {
+        var monthArrayShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", 'Dec'];
+        var monthIndex = this.month - 1;
+
         return monthArrayShort[monthIndex];
     }
     this.month3 = function () {
+        var monthArrayFull = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", 'December'];
+        var monthIndex = this.month - 1;
+
         return monthArrayFull[monthIndex];
     }
+    */
 
     this.year = dateObj.getFullYear();
+    
+    /*
     this.date = function () {
         //Convert int to str for concantenation
         var dayStr = this.day.toString();
@@ -549,6 +646,7 @@ function DateObject(dateObj) {
 
         return dateReturn;
     };
+    */
 };
 
 //Account Object Template
@@ -586,7 +684,7 @@ function Child(id, name, dob, gender, weight, height) {
         var ageReturn;
 
         //If child is older than 18 months
-        if (yearDiff > 1 && monthDiff > 6) {
+        if (yearDiff > 1 || (yearDiff == 1 && monthDiff > 6)) {
             ageReturn = `${yearDiff} years ${monthDiff} months`;
         }
 

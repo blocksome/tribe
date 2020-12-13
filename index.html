@@ -119,12 +119,22 @@
 
                         <ion-item>
                             <ion-label class="settings-label">Date of Birth</ion-label>
-                            <ion-label class="settings-label settings-label-display">${localAccount.child.dob.day} ${localAccount.child.dob.month2} ${localAccount.child.dob.year}</ion-label>
+                            <ion-label class="settings-label settings-label-display">${localAccount.child.dob.day} ${monthArrayShort[localAccount.child.dob.month - 1]} ${localAccount.child.dob.year}</ion-label>
                         </ion-item>
 
                         <ion-item>
                             <ion-label class="settings-label">Gender</ion-label>
                             <ion-label class="settings-label settings-label-display">${localAccount.child.gender}</ion-label>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label class="settings-label">Weight (kg)</ion-label>
+                            <ion-label class="settings-label settings-label-display">${localAccount.child.weight}</ion-label>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label class="settings-label">Height (cm)</ion-label>
+                            <ion-label class="settings-label settings-label-display">${localAccount.child.height}</ion-label>
                         </ion-item>
 
                         <ion-button class="ion-padding" id="edit-child-btn" expand="block" slot="icon-only">Edit Details</ion-button>
@@ -263,6 +273,16 @@
         <ion-item>
             <ion-label position="fixed">Gender</ion-label>
             <ion-input clear-input required="true" value="${localAccount.child.gender}" id="edit-child-gender" class="edit-child-input"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="fixed">Weight (kg)</ion-label>
+            <ion-input clear-input required="true" value="${localAccount.child.weight}" id="edit-child-weight" class="edit-child-input"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="fixed">Height (cm)</ion-label>
+            <ion-input clear-input required="true" value="${localAccount.child.height}" id="edit-child-height" class="edit-child-input"></ion-input>
         </ion-item>
                 
                 <ion-button class="ion-padding" id="edit-child-submit" expand="block" slot="icon-only">Save Changes</ion-button>
