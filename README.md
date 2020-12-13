@@ -23,6 +23,8 @@ You can edit Scrapbook Entries and delete individual ones. With this level of co
 
 The image button for scrapbook is not working at the moment. DO NOT CREATE ENTRIES WITH IMAGES.
 
+- Health Tracker - As much as we want to watch our kids grow, we want to watch them do so healthily. This health tracker will track users' children's weight, height and food intake.
+
 ## Technologies Used
 
 - [JQuery](https://jquery.com)
